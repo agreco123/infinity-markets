@@ -1,11 +1,12 @@
 {
   "name": "infinity-markets-server",
-  "version": "1.0.0",
+  "version": "1.5.1",
   "description": "Infinity Markets API server",
   "main": "index.js",
   "scripts": {
     "start": "node index.js",
-    "dev": "node --watch index.js"
+    "dev": "node --watch index.js",
+    "postinstall": "npx puppeteer browsers install chrome || echo 'chrome install skipped'"
   },
   "dependencies": {
     "@supabase/supabase-js": "^2.45.0",
