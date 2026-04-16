@@ -478,7 +478,7 @@ async function fetchCBP(base, key, stateFips, countyFips) {
 
   for (const yr of yearsToTry) {
     try {
-      const url = `${base}/${yr}/cbp?get=NAICS2017,NAICS2017_LABEL,EMP,ESTAB&for=county:${countyFips}&in=state:${stateFips}&NAICS2017=11,21,22,23,31-33,42,44-45,48-49,51,52,53,54,55,56,61,62,71,72,81&key=${key}`;
+      const url = `${base}/${yr}/cbp?get=NAICS2017,NAICS2017_LABEL,EMP,ESTAB&for=county:${countyFips}&in=state:${stateFips}&NAICS2017=*&key=${key}`;
       const data = await censusFetchDemo(url);
       if (!data || data.length < 2) continue;
 
@@ -487,7 +487,10 @@ async function fetchCBP(base, key, stateFips, countyFips) {
       const empIdx = headers.indexOf('EMP');
       const estabIdx = headers.indexOf('ESTAB');
 
-      const sectors = data.slice(1).map(row => ({
+      const naicsIdx = headers.indexOf('NAICS2017');
+      const sectors = data.slice(1)
+        .filter(row => /^\d{2}(-\d{2})?$/.test(String(row[naicsIdx] || '')))
+        .map(row => ({
         name: row[labelIdx],
         sector: row[labelIdx],
         est: safeNum(row[empIdx]),
