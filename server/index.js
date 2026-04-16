@@ -108,7 +108,7 @@ async function start() {
       }
 
       app.listen(PORT, () => {
-              console.log(`[server] Infinity Markets v1.4.2 listening on :${PORT}`);
+              console.log(`[server] Infinity Markets v1.5.0 listening on :${PORT}`);
       });
     } catch (err) {
           console.error('[server] Failed to start:', err);
