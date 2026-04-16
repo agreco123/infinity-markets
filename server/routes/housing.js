@@ -1,24 +1,27 @@
 /**
- * Infinity Markets v1.0 — Housing Route (Task 5)
+ * Infinity Markets v1.5 — Housing Route
  *
- * GET /api/housing?zips=16066,16046,16002&stateFips=42&countyFips=019&cbsa=38300
+ * GET /api/housing?zips=14221,14226,14228&stateFips=36&countyFips=029&cbsa=15380
  *
  * Parallel calls:
- *   Redfin TSV (cached, ZIP filter) → median sale price, DOM, inventory, sale-to-list
- *   Zillow CSV (cached) → ZHVI by ZIP
- *   Census BPS → building permits SF + MF by place/county
- *   FHFA HPI → quarterly price index
- *   HMDA → mortgage origination activity
- *   HUD → Fair Market Rents
- *   FRED MORTGAGE30US → current mortgage rate
+ * Redfin (Supabase) → median sale price, DOM, inventory, sale-to-list
+ * Zillow (Supabase) → ZHVI price trend
+ * Census BPS → building permits SF + MF by county
+ * FHFA HPI → quarterly price index
+ * HMDA → mortgage origination activity
+ * HUD → Fair Market Rents
+ * FRED MORTGAGE30US → current mortgage rate
  *
- * Returns shape matching MOCK_HOUSING from v0.3 JSX.
+ * v1.5 fixes:
+ * - HUD FMR: handle multiple response field name formats
+ * - Redfin/Zillow: tables now seeded with real data
+ * - Added _sources metadata for citation provenance
  */
 
 const express = require('express');
 const router = express.Router();
 
-// ── Helpers ──────────────────────────────────────────────────────────────────
+// ── Helpers ────────────────────────────────────────────────────────────────
 
 function safeNum(val, fallback = 0) {
   if (val === undefined || val === null || val === '' || val === '-') return fallback;
@@ -50,37 +53,14 @@ function parseTSV(text) {
   });
 }
 
-function parseCSV(text) {
-  const lines = text.split('\n').filter(l => l.trim());
-  if (lines.length < 2) return [];
-  const splitRow = (row) => {
-    const result = [];
-    let current = '';
-    let inQuotes = false;
-    for (const ch of row) {
-      if (ch === '"') { inQuotes = !inQuotes; continue; }
-      if (ch === ',' && !inQuotes) { result.push(current.trim()); current = ''; continue; }
-      current += ch;
-    }
-    result.push(current.trim());
-    return result;
-  };
-  const headers = splitRow(lines[0]);
-  return lines.slice(1).map(line => {
-    const vals = splitRow(line);
-    const obj = {};
-    headers.forEach((h, i) => { obj[h] = vals[i] ?? ''; });
-    return obj;
-  });
-}
-
-// ── Route ────────────────────────────────────────────────────────────────────
+// ── Route ──────────────────────────────────────────────────────────────────
 
 router.get('/', async (req, res) => {
   const { zips, stateFips, countyFips, cbsa } = req.query;
   if (!stateFips || !countyFips) {
     return res.status(400).json({ error: 'stateFips and countyFips required' });
   }
+
   const zipList = (zips || '').split(',').map(z => z.trim()).filter(Boolean);
 
   try {
@@ -90,8 +70,6 @@ router.get('/', async (req, res) => {
     const fredKey = config.fred_api_key;
     const fredBase = config.fred_api_base || 'https://api.stlouisfed.org/fred';
     const hudKey = config.hud_api_key;
-
-    // ── Parallel data collection ────────────────────────────────────────────
 
     const results = await Promise.allSettled([
       fetchRedfin(supabase, cache, zipList),
@@ -125,26 +103,38 @@ router.get('/', async (req, res) => {
     const hud = val(5);
     const mortgage = val(6);
 
-    // ── Assemble MOCK_HOUSING shape ─────────────────────────────────────────
-
     const payload = {
-      totalUnits:      redfin?.totalInventory ?? null,
-      vacancyRate:     null, // Requires ACS B25002 — filled by useStudy merge
-      medianValue:     redfin?.medianSalePrice ?? null,
-      valueGrowthYoY:  redfin?.priceGrowthYoY ?? null,
-      medianDOM:       redfin?.medianDOM ?? null,
-      saleToList:      redfin?.saleToList ?? null,
-      monthsSupply:    redfin?.monthsSupply ?? null,
-      medianRent:      hud?.fmr2br ?? null,
-      permitsSF:       permits?.sf ?? [],
-      permitsMF:       permits?.mf ?? [],
-      priceTrend:      zillow?.priceTrend ?? [],
-      vintage:         [], // ACS B25034 — filled by useStudy merge
-      mortgageRate:    mortgage ?? null,
-      affordableCeiling: null, // Calculated in demographics
+      totalUnits: redfin?.totalInventory ?? null,
+      vacancyRate: null,
+      medianValue: redfin?.medianSalePrice ?? null,
+      valueGrowthYoY: redfin?.priceGrowthYoY ?? null,
+      medianDOM: redfin?.medianDOM ?? null,
+      saleToList: redfin?.saleToList ?? null,
+      monthsSupply: redfin?.monthsSupply ?? null,
+      medianRent: hud?.fmr2br ?? null,
+      permitsSF: permits?.sf ?? [],
+      permitsMF: permits?.mf ?? [],
+      priceTrend: zillow?.priceTrend ?? [],
+      vintage: [],
+      mortgageRate: mortgage ?? null,
+      affordableCeiling: null,
+      // v1.5: all FMR bedroom types
+      fmrByBedroom: hud ? [
+        { type: 'Studio', rent: hud.fmr0br },
+        { type: '1 BR', rent: hud.fmr1br },
+        { type: '2 BR', rent: hud.fmr2br },
+        { type: '3 BR', rent: hud.fmr3br },
+        { type: '4 BR', rent: hud.fmr4br },
+      ] : [],
+      _sources: {
+        medianValue: redfin ? 'Redfin MLS (Supabase ETL)' : null,
+        priceTrend: zillow ? 'Zillow ZHVI (Supabase ETL)' : null,
+        permits: 'Census Building Permits Survey',
+        rent: hud ? 'HUD Fair Market Rents' : null,
+        mortgage: 'FRED MORTGAGE30US',
+      },
     };
 
-    // Persist building permits to Supabase for future studies
     if (dataCache && permits) {
       const permitData = (permits.sf || []).map((v, i) => ({
         year: parseInt(permits.sf[i]?.yr || 0) || null,
@@ -162,11 +152,10 @@ router.get('/', async (req, res) => {
   }
 });
 
-// ── Data Fetchers ────────────────────────────────────────────────────────────
+// ── Data Fetchers ──────────────────────────────────────────────────────────
 
 /**
  * Redfin — query Supabase redfin_monthly table (pre-populated via ETL)
- * Replaces national TSV download that would OOM on Render (C-1 fix)
  */
 async function fetchRedfin(supabase, cache, zipList) {
   if (!zipList.length) return null;
@@ -181,11 +170,10 @@ async function fetchRedfin(supabase, cache, zipList) {
       .select('*')
       .in('zip_code', zipList)
       .order('period_end', { ascending: false })
-      .limit(zipList.length * 13); // 13 months for YoY calc
+      .limit(zipList.length * 13);
 
     if (error || !data?.length) return null;
 
-    // Latest period
     const latestPeriod = data[0].period_end;
     const latest = data.filter(r => r.period_end === latestPeriod);
 
@@ -193,6 +181,7 @@ async function fetchRedfin(supabase, cache, zipList) {
       const vals = latest.map(r => safeNum(r[field])).filter(v => v > 0);
       return vals.length > 0 ? Math.round(vals.reduce((a, b) => a + b, 0) / vals.length) : null;
     };
+
     const avgDec = (field) => {
       const vals = latest.map(r => safeNum(r[field])).filter(v => v > 0);
       return vals.length > 0 ? Math.round((vals.reduce((a, b) => a + b, 0) / vals.length) * 100) / 100 : null;
@@ -201,7 +190,7 @@ async function fetchRedfin(supabase, cache, zipList) {
     const medianSalePrice = avg('median_sale_price');
     const medianDOM = avg('median_dom');
     let saleToList = avgDec('avg_sale_to_list');
-    if (saleToList && saleToList > 2) saleToList = saleToList / 100; // H-4: normalize percentage to decimal
+    if (saleToList && saleToList > 2) saleToList = saleToList / 100;
     const monthsSupply = avgDec('months_of_supply');
     const totalInventory = avg('inventory');
 
@@ -228,7 +217,6 @@ async function fetchRedfin(supabase, cache, zipList) {
 
 /**
  * Zillow — query Supabase zillow_zhvi table (pre-populated via ETL)
- * Replaces national CSV download that would OOM on Render (C-1 fix)
  */
 async function fetchZillow(supabase, cache, zipList) {
   if (!zipList.length) return null;
@@ -244,13 +232,11 @@ async function fetchZillow(supabase, cache, zipList) {
       .eq('region_type', 'zip')
       .in('region_name', zipList)
       .order('period_date', { ascending: false })
-      .limit(zipList.length * 6);
+      .limit(zipList.length * 12);
 
     if (error || !data?.length) return null;
 
-    // Get unique periods, most recent 6
     const periods = [...new Set(data.map(r => r.period_date))].sort().slice(-6);
-
     const priceTrend = periods.map(period => {
       const rows = data.filter(r => r.period_date === period);
       const vals = rows.map(r => safeNum(r.zhvi_value)).filter(v => v > 0);
@@ -271,82 +257,49 @@ async function fetchZillow(supabase, cache, zipList) {
 
 /**
  * Census BPS — building permits, multi-year
- * Uses flat file download from https://www2.census.gov/econ/bps/County/co{YYYY}a.txt
- * (the Census BPS API /data/{yr}/bps/annperm does NOT exist)
- *
- * Flat file columns (0-indexed, comma-separated):
- *   0: Survey Date (year)
- *   1: State FIPS
- *   2: County FIPS
- *   3: Region Code
- *   4: Division Code
- *   5: County Name
- *   6-8:   1-unit  (Bldgs, Units, Value)
- *   9-11:  2-units (Bldgs, Units, Value)
- *   12-14: 3-4 units (Bldgs, Units, Value)
- *   15-17: 5+ units (Bldgs, Units, Value)
- *   18-29: Reported equivalents of the above
- *
- * File is ~3000 lines / ~370KB — cached in memory per year.
  */
-
-// Module-level cache for BPS flat files (persists across requests within a process)
 const _bpsFileCache = new Map();
 
 async function fetchBuildingPermits(base, key, stateFips, countyFips) {
   const sf = [];
   const mf = [];
   const currentYear = new Date().getFullYear();
-  // BPS annual data lags ~18 months. In April 2026, 2024 may be available, 2023 guaranteed.
   const years = [currentYear - 2, currentYear - 3, currentYear - 4, currentYear - 5];
 
-  // Pad FIPS to match file format (state=2 digits, county=3 digits)
   const stPad = String(stateFips).padStart(2, '0');
   const coPad = String(countyFips).padStart(3, '0');
 
   for (const yr of years) {
     try {
-      // Check module-level cache first
       const cacheKey = `bps_flat_${yr}`;
       let rows = _bpsFileCache.get(cacheKey);
-
       if (!rows) {
         const url = `https://www2.census.gov/econ/bps/County/co${yr}a.txt`;
         const resp = await fetch(url, { signal: AbortSignal.timeout(15000) });
-        if (!resp.ok) continue; // Year not available yet
-
+        if (!resp.ok) continue;
         const text = await resp.text();
         const lines = text.split('\n').filter(l => l.trim());
-
-        // Skip the two header rows
-        // Row 0: "Survey,FIPS,FIPS,Region,Division,County,,1-unit,,,..."
-        // Row 1: "Date,State,County,Code,Code,Name,Bldgs,Units,Value,..."
         rows = [];
         for (let i = 2; i < lines.length; i++) {
           const cols = lines[i].split(',').map(c => c.trim().replace(/^"|"$/g, ''));
           if (cols.length >= 18) rows.push(cols);
         }
-
-        // Cache for 24 hours (these files don't change once published)
         _bpsFileCache.set(cacheKey, rows);
         setTimeout(() => _bpsFileCache.delete(cacheKey), 24 * 3600 * 1000);
       }
 
-      // Find the row matching our state + county FIPS
       const match = rows.find(cols =>
-        String(cols[1]).padStart(2, '0') === stPad &&
-        String(cols[2]).padStart(3, '0') === coPad
+        String(cols[1]).padStart(2, '0') === stPad && String(cols[2]).padStart(3, '0') === coPad
       );
-
       if (!match) continue;
 
       const countyName = match[5] || '';
-      const sfUnits = safeNum(match[7]);   // 1-unit Units
-      const mfUnits = safeNum(match[16]);  // 5+ units Units
+      const sfUnits = safeNum(match[7]);
+      const mfUnits = safeNum(match[16]);
 
       sf.push({ yr: String(yr), v: sfUnits, name: countyName });
       mf.push({ yr: String(yr), v: mfUnits });
-    } catch (_) { /* year unavailable — skip silently */ }
+    } catch (_) {}
   }
 
   sf.sort((a, b) => a.yr.localeCompare(b.yr));
@@ -354,16 +307,12 @@ async function fetchBuildingPermits(base, key, stateFips, countyFips) {
   return { sf, mf };
 }
 
-/**
- * FHFA HPI — quarterly price index
- */
 async function fetchFHFA(config, cache, stateFips, countyFips, cbsa) {
   const downloadUrl = config.fhfa_hpi_download;
   if (!downloadUrl) return null;
 
   const CACHE_KEY = 'fhfa_hpi';
   let data = cache.get(CACHE_KEY);
-
   if (!data) {
     try {
       const text = await fetchText(downloadUrl);
@@ -390,9 +339,6 @@ async function fetchFHFA(config, cache, stateFips, countyFips, cbsa) {
   }));
 }
 
-/**
- * HMDA — mortgage origination
- */
 async function fetchHMDA(config, stateFips, countyFips) {
   const browserUrl = config.hmda_data_browser;
   if (!browserUrl) return null;
@@ -405,24 +351,66 @@ async function fetchHMDA(config, stateFips, countyFips) {
 
 /**
  * HUD — Fair Market Rents
+ * v1.5 FIX: Handle multiple response field name formats from HUD API
+ * The API may return field names as:
+ *   fmr_0/fmr_1/... OR Efficiency/One-Bedroom/... OR fmr0/fmr1/...
  */
 async function fetchHUD(apiKey, stateFips, countyFips) {
   if (!apiKey) return null;
-  try {
-    const fips = `${stateFips}${countyFips}99999`;
-    const url = `https://www.huduser.gov/hudapi/public/fmr/data/${fips}`;
-    const data = await fetchJson(url, {
-      headers: { Authorization: `Bearer ${apiKey}` },
-    });
-    const fmr = data?.data?.basicdata;
-    return {
-      fmr0br: safeNum(fmr?.fmr_0),
-      fmr1br: safeNum(fmr?.fmr_1),
-      fmr2br: safeNum(fmr?.fmr_2),
-      fmr3br: safeNum(fmr?.fmr_3),
-      fmr4br: safeNum(fmr?.fmr_4),
-    };
-  } catch (_) { return null; }
+
+  // Try multiple FIPS formats
+  const fipsVariants = [
+    `${stateFips}${countyFips}99999`,  // County with 99999 suffix
+    `${stateFips}${countyFips}`,       // Plain county FIPS
+  ];
+
+  for (const fips of fipsVariants) {
+    try {
+      const url = `https://www.huduser.gov/hudapi/public/fmr/data/${fips}`;
+      const data = await fetchJson(url, {
+        headers: { Authorization: `Bearer ${apiKey}` },
+      });
+
+      // v1.5: Handle multiple response structures
+      const fmr = data?.data?.basicdata || data?.data || data;
+
+      // Try multiple field name patterns
+      const get0 = safeNum(fmr?.fmr_0 || fmr?.Efficiency || fmr?.efficiency || fmr?.fmr0);
+      const get1 = safeNum(fmr?.fmr_1 || fmr?.['One-Bedroom'] || fmr?.one_bedroom || fmr?.fmr1);
+      const get2 = safeNum(fmr?.fmr_2 || fmr?.['Two-Bedroom'] || fmr?.two_bedroom || fmr?.fmr2);
+      const get3 = safeNum(fmr?.fmr_3 || fmr?.['Three-Bedroom'] || fmr?.three_bedroom || fmr?.fmr3);
+      const get4 = safeNum(fmr?.fmr_4 || fmr?.['Four-Bedroom'] || fmr?.four_bedroom || fmr?.fmr4);
+
+      // v1.5: Also check for small area FMR (safmrs) — sometimes returned as array
+      if (get2 > 0) {
+        return { fmr0br: get0, fmr1br: get1, fmr2br: get2, fmr3br: get3, fmr4br: get4 };
+      }
+
+      // Check if response has smallAreaFMRs
+      const safmrs = data?.data?.smallAreaFMRs || data?.data?.basicdata?.smallAreaFMRs;
+      if (Array.isArray(safmrs) && safmrs.length > 0) {
+        // Average across small areas
+        const avgField = (field) => {
+          const vals = safmrs.map(s => safeNum(s[field])).filter(v => v > 0);
+          return vals.length > 0 ? Math.round(vals.reduce((a, b) => a + b, 0) / vals.length) : 0;
+        };
+        const r2 = avgField('fmr_2') || avgField('Two-Bedroom');
+        if (r2 > 0) {
+          return {
+            fmr0br: avgField('fmr_0') || avgField('Efficiency'),
+            fmr1br: avgField('fmr_1') || avgField('One-Bedroom'),
+            fmr2br: r2,
+            fmr3br: avgField('fmr_3') || avgField('Three-Bedroom'),
+            fmr4br: avgField('fmr_4') || avgField('Four-Bedroom'),
+          };
+        }
+      }
+    } catch (e) {
+      console.warn(`[housing] HUD FMR fetch failed for FIPS ${fips}:`, e.message);
+    }
+  }
+
+  return null;
 }
 
 /**
