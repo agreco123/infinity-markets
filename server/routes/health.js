@@ -21,7 +21,7 @@ async function fetchJson(url, opts = {}) {
 router.get('/', (req, res) => {
   res.json({
     status: 'ok',
-    version: '1.4.2',
+    version: '1.5.0',
     uptime: Math.round(process.uptime()),
     memory: Math.round(process.memoryUsage().rss / 1024 / 1024) + 'MB',
     node: process.version,
@@ -110,7 +110,7 @@ router.get('/full', async (req, res) => {
 
   // 5. System info
   results.system = {
-    version: '1.4.2',
+    version: '1.5.0',
     node: process.version,
     uptime: Math.round(process.uptime()),
     memory: {
