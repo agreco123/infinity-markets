@@ -1,0 +1,154 @@
+{
+  "targetArea": "Newstead, PA",
+  "targetAddress": "Newstead Township, Erie County, PA",
+  "notes": "Fixture for V41-1 byte-identity snapshot test. Smaller Erie County market, sparser data set — exercises em-dash fallback codepaths alongside populated measured fields.",
+  "geo": {
+    "name": "Newstead",
+    "stateAbbr": "PA",
+    "stateFips": "42",
+    "countyFips": "049",
+    "subdivFips": "54112",
+    "cbsa": "21500",
+    "cbsaName": "Erie, PA Metro Area",
+    "county": "Erie County",
+    "subdivision": "Newstead township",
+    "lat": 42.0919,
+    "lng": -80.1502,
+    "zips": ["16428"]
+  },
+  "demographics": {
+    "population": 3847,
+    "populationYoY": -0.004,
+    "mhi": 68420,
+    "mhiYoY": 0.018,
+    "households": 1512,
+    "ownerOccupied": 0.841,
+    "renterOccupied": 0.159,
+    "totalHousingUnits": 1684,
+    "vacancyRate": 0.102,
+    "unemploymentRate": 0.048,
+    "laborForce": 2018,
+    "ageMedian": 46.8,
+    "educationBachelors": 0.248,
+    "educationGraduate": 0.089,
+    "commuteAvgMin": 29.4,
+    "_sources": { "population": "acs", "mhi": "acs", "households": "acs" }
+  },
+  "housing": {
+    "medianSalePrice": 212000,
+    "medianListPrice": 225000,
+    "medianHomeValue": 198000,
+    "medianDOM": 58,
+    "monthsSupply": 5.4,
+    "activeListings": 26,
+    "newListings": 8,
+    "homesSold": 6,
+    "medianPpsf": 112,
+    "priceDropsPct": 0.34,
+    "avgSaleToList": 0.971,
+    "medianSalePriceYoY": 0.028,
+    "homesSoldYoY": -0.12,
+    "permitsTotal": 14,
+    "permitsYoY": 0.08,
+    "latestPermitYear": 2023,
+    "medianRent": 1250,
+    "fairMarketRent": 1180,
+    "listings": [
+      { "address": "12 Lakeshore Rd", "price": 245000, "beds": 3, "baths": 2, "sqft": 1850 },
+      { "address": "87 Birch Ct",     "price": 189000, "beds": 3, "baths": 1.5, "sqft": 1620 }
+    ],
+    "_sources": { "medianSalePrice": "redfin", "medianDOM": "redfin" }
+  },
+  "competition": {
+    "builderCount": 2,
+    "communityCount": 3,
+    "activeListingsNew": 7,
+    "medianListPriceNew": 285000,
+    "daysOnMarketNew": 92,
+    "builders": [
+      { "name": "Local Custom Builders", "communities": 2, "priceMin": 245000, "priceMax": 385000 },
+      { "name": "Keystone Custom Homes", "communities": 1, "priceMin": 295000, "priceMax": 445000 }
+    ],
+    "communities": [
+      { "name": "Lakeview Estates", "builder": "Local Custom Builders", "priceFrom": 245000, "status": "selling" }
+    ],
+    "publicBenchmarks": [
+      { "ticker": "NVR", "name": "NVR, Inc.",   "homesDelivered": 22853, "asp": 454200, "cancelRate": 0.138, "grossMargin": 0.239 },
+      { "ticker": "DHI", "name": "D.R. Horton", "homesDelivered": 88628, "asp": 378800, "cancelRate": 0.175, "grossMargin": 0.232 }
+    ],
+    "_sources": { "builderCount": "rapidapi", "builders": "rapidapi", "publicBenchmarks": "edgar" }
+  },
+  "analysis": {
+    "absorption": {
+      "annualSalesRate": 6,
+      "monthsSupply": 5.4,
+      "byPriceBand": [
+        { "band": "Entry", "listings":  8, "salesPerMonth": 0.6, "monthsSupply": 13.3 },
+        { "band": "Mid",   "listings": 12, "salesPerMonth": 0.8, "monthsSupply": 15.0 },
+        { "band": "Premium","listings": 6, "salesPerMonth": 0.2, "monthsSupply": 30.0 }
+      ]
+    },
+    "pricing": {
+      "targetHomePrice": 265000,
+      "targetPriceRange": { "low": 245000, "mid": 265000, "high": 295000 },
+      "targetLow": 245000,
+      "targetMid": 265000,
+      "targetHigh": 295000,
+      "tier": "Entry",
+      "pricePerSqft": 135
+    }
+  },
+  "forward": {
+    "permits5yr": [
+      { "year": 2024, "permits": 14 },
+      { "year": 2025, "permits": 13 },
+      { "year": 2026, "permits": 13 }
+    ],
+    "mortgageRate30yr": 0.0682
+  },
+  "land": {
+    "acres": 18,
+    "zoning": "R-1",
+    "pricePerAcre": 32000,
+    "totalLandCost": 576000
+  },
+  "regulatory": {
+    "entitlement": "By-right",
+    "impactFees": 3200,
+    "schoolDistrict": "North East SD"
+  },
+  "proforma": {
+    "lotCount": 42,
+    "revenuePerLot": 265000,
+    "totalRevenue": 11130000,
+    "grossMargin": 0.18,
+    "irr": 0.142,
+    "tvpi": 1.48
+  },
+  "scorecard": {
+    "overall": 58,
+    "demand": 52,
+    "supply": 68,
+    "pricing": 55,
+    "feasibility": 62,
+    "verdict": "CAUTION",
+    "recommendation": "caution"
+  },
+  "swot": {
+    "strengths": [
+      "Low land cost ($32k/acre) preserves margin headroom",
+      "By-right zoning reduces entitlement risk"
+    ],
+    "weaknesses": [
+      "5.4 months supply = balanced-to-slow absorption",
+      "MHI below state median limits pricing ceiling"
+    ],
+    "opportunities": [
+      "Underserved Premium tier ($295-385k) with only 1 active builder"
+    ],
+    "threats": [
+      "Erie MSA population decline trend",
+      "Higher rate environment compresses Entry-tier affordability"
+    ]
+  }
+}

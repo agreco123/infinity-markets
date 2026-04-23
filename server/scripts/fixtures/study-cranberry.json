@@ -1,0 +1,174 @@
+{
+  "targetArea": "Cranberry Township, PA",
+  "targetAddress": "Cranberry Township, Butler County, PA",
+  "notes": "Fixture for V41-1 byte-identity snapshot test. Represents a v4.0.2-shaped Cranberry study with Supabase-loaded measured values. Field shapes mirror /api/debug/study-raw production output.",
+  "geo": {
+    "name": "Cranberry",
+    "stateAbbr": "PA",
+    "stateFips": "42",
+    "countyFips": "019",
+    "subdivFips": "17328",
+    "cbsa": "38300",
+    "cbsaName": "Pittsburgh, PA Metro Area",
+    "county": "Butler County",
+    "subdivision": "Cranberry township",
+    "lat": 40.6837,
+    "lng": -80.1073,
+    "zips": ["16066", "16046"]
+  },
+  "demographics": {
+    "population": 33096,
+    "populationYoY": 0.013,
+    "mhi": 112438,
+    "mhiYoY": 0.042,
+    "households": 12447,
+    "ownerOccupied": 0.812,
+    "renterOccupied": 0.188,
+    "totalHousingUnits": 12988,
+    "vacancyRate": 0.041,
+    "unemploymentRate": 0.031,
+    "laborForce": 17854,
+    "ageMedian": 41.2,
+    "educationBachelors": 0.462,
+    "educationGraduate": 0.221,
+    "commuteAvgMin": 24.8,
+    "_sources": { "population": "acs", "mhi": "acs", "households": "acs", "ownerOccupied": "acs" }
+  },
+  "housing": {
+    "medianSalePrice": 467500,
+    "medianListPrice": 489000,
+    "medianHomeValue": 445000,
+    "medianDOM": 22,
+    "monthsSupply": 2.1,
+    "activeListings": 84,
+    "newListings": 41,
+    "homesSold": 38,
+    "pendingSales": 29,
+    "medianPpsf": 201,
+    "medianListPpsf": 210,
+    "priceDropsPct": 0.21,
+    "avgSaleToList": 0.998,
+    "offMarketTwoWeeks": 0.57,
+    "medianSalePriceYoY": 0.061,
+    "homesSoldYoY": -0.08,
+    "permitsTotal": 312,
+    "permitsYoY": -0.04,
+    "latestPermitYear": 2023,
+    "medianRent": 2100,
+    "rentYoY": 0.03,
+    "fairMarketRent": 1810,
+    "listings": [
+      { "address": "123 Oak St", "price": 475000, "beds": 4, "baths": 3, "sqft": 2400 },
+      { "address": "456 Maple Ave", "price": 525000, "beds": 4, "baths": 2.5, "sqft": 2650 },
+      { "address": "789 Pine Ln", "price": 389000, "beds": 3, "baths": 2, "sqft": 1850 }
+    ],
+    "_sources": { "medianSalePrice": "redfin", "monthsSupply": "redfin", "medianDOM": "redfin" }
+  },
+  "competition": {
+    "builderCount": 11,
+    "communityCount": 18,
+    "activeListingsNew": 64,
+    "medianListPriceNew": 612000,
+    "daysOnMarketNew": 45,
+    "builders": [
+      { "name": "NVR/Ryan Homes", "communities": 4, "priceMin": 489000, "priceMax": 685000 },
+      { "name": "D.R. Horton", "communities": 3, "priceMin": 425000, "priceMax": 595000 },
+      { "name": "Maronda Homes", "communities": 2, "priceMin": 399000, "priceMax": 549000 },
+      { "name": "Heartland Homes", "communities": 2, "priceMin": 525000, "priceMax": 795000 }
+    ],
+    "communities": [
+      { "name": "Franklin Farms", "builder": "NVR/Ryan Homes", "priceFrom": 489000, "status": "selling" },
+      { "name": "Seven Fields Reserve", "builder": "D.R. Horton", "priceFrom": 425000, "status": "selling" }
+    ],
+    "publicBenchmarks": [
+      { "ticker": "NVR",  "name": "NVR, Inc.",         "homesDelivered": 22853, "asp": 454200, "cancelRate": 0.138, "grossMargin": 0.239 },
+      { "ticker": "DHI",  "name": "D.R. Horton",       "homesDelivered": 88628, "asp": 378800, "cancelRate": 0.175, "grossMargin": 0.232 },
+      { "ticker": "PHM",  "name": "PulteGroup",        "homesDelivered": 28660, "asp": 544000, "cancelRate": 0.131, "grossMargin": 0.294 }
+    ],
+    "_sources": { "builderCount": "rapidapi", "builders": "rapidapi", "publicBenchmarks": "edgar" }
+  },
+  "analysis": {
+    "absorption": {
+      "annualSalesRate": 48,
+      "monthsSupply": 2.1,
+      "byPriceBand": [
+        { "band": "Entry",         "listings": 18, "salesPerMonth": 2.1, "monthsSupply": 8.6 },
+        { "band": "Mid",           "listings": 28, "salesPerMonth": 3.8, "monthsSupply": 7.4 },
+        { "band": "Mid-Premium",   "listings": 22, "salesPerMonth": 2.6, "monthsSupply": 8.5 },
+        { "band": "Premium",       "listings": 12, "salesPerMonth": 1.4, "monthsSupply": 8.6 },
+        { "band": "Ultra-Luxury",  "listings":  4, "salesPerMonth": 0.3, "monthsSupply": 13.3 }
+      ]
+    },
+    "pricing": {
+      "targetHomePrice": 525000,
+      "targetPriceRange": { "low": 489000, "mid": 525000, "high": 565000 },
+      "targetLow": 489000,
+      "targetMid": 525000,
+      "targetHigh": 565000,
+      "tier": "Mid-Premium",
+      "pricePerSqft": 215
+    }
+  },
+  "forward": {
+    "permits5yr": [
+      { "year": 2024, "permits": 312 },
+      { "year": 2025, "permits": 305 },
+      { "year": 2026, "permits": 298 },
+      { "year": 2027, "permits": 292 },
+      { "year": 2028, "permits": 287 }
+    ],
+    "mortgageRate30yr": 0.0682,
+    "mortgageRateForecast": [
+      { "year": 2024, "rate": 0.0682 },
+      { "year": 2025, "rate": 0.0625 },
+      { "year": 2026, "rate": 0.0585 }
+    ]
+  },
+  "land": {
+    "acres": 42,
+    "zoning": "R-2",
+    "pricePerAcre": 85000,
+    "totalLandCost": 3570000
+  },
+  "regulatory": {
+    "entitlement": "By-right",
+    "impactFees": 8500,
+    "schoolDistrict": "Seneca Valley SD"
+  },
+  "proforma": {
+    "lotCount": 124,
+    "revenuePerLot": 525000,
+    "totalRevenue": 65100000,
+    "grossMargin": 0.22,
+    "irr": 0.184,
+    "tvpi": 1.72
+  },
+  "scorecard": {
+    "overall": 82,
+    "demand": 88,
+    "supply": 74,
+    "pricing": 86,
+    "feasibility": 80,
+    "verdict": "PROCEED",
+    "recommendation": "proceed"
+  },
+  "swot": {
+    "strengths": [
+      "MHI 60% above PA median signals strong demand durability",
+      "2.1 months supply = persistent seller's market",
+      "Net in-migration and employment growth support absorption"
+    ],
+    "weaknesses": [
+      "Entry band shows thinning inventory — risk of missing first-time buyer",
+      "YoY homes sold down 8% signals price sensitivity at upper tiers"
+    ],
+    "opportunities": [
+      "Seven Fields corridor lacks Premium product ($565-625k)",
+      "Maronda communities fully sold — pricing vacuum in Mid band"
+    ],
+    "threats": [
+      "Mortgage rates >6.8% may compress affordability for Entry tier",
+      "NVR pipeline expansion could pressure Premium ASPs"
+    ]
+  }
+}
