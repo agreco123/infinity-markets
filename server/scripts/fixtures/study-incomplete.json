@@ -1,0 +1,49 @@
+{
+  "targetArea": "Incomplete PA",
+  "targetAddress": "Intentionally partial fixture for V41-3 Data Quality",
+  "notes": "Fixture for V41-3 / H-8 — deliberately omits several canonical required fields (e.g. geo.countyFips, demographics.mhi, housing.medianSalePrice, analysis.pricing.targetHomePrice) and includes one unknown field (analysis.experimental.foo). Exercises the Data Quality appendix render path in deliverables/pdf.js. Snapshot target: study-incomplete.pdf.html.golden.",
+  "geo": {
+    "name": "Incomplete Township",
+    "stateAbbr": "PA",
+    "stateFips": "42",
+    "county": "Unknown County",
+    "subdivision": "Incomplete township",
+    "lat": 40.5,
+    "lng": -79.8,
+    "zips": ["15000"]
+  },
+  "demographics": {
+    "population": 5000,
+    "households": 2000,
+    "ownerOccupied": 0.75
+  },
+  "housing": {
+    "medianDOM": 35,
+    "monthsSupply": 4.2
+  },
+  "competition": {
+    "builderCount": 3,
+    "communityCount": 4,
+    "builders": [
+      { "name": "Acme Builders" },
+      { "name": "Beta Homes" },
+      { "name": "Gamma Developments" }
+    ]
+  },
+  "analysis": {
+    "absorption": {
+      "annualSalesRate": 24,
+      "monthsSupply": 4.2,
+      "byPriceBand": [
+        { "band": "Entry", "listings": 8, "salesPerMonth": 1.5, "monthsSupply": 5.3 },
+        { "band": "Mid",   "listings": 6, "salesPerMonth": 1.0, "monthsSupply": 6.0 }
+      ]
+    },
+    "pricing": {
+      "targetPriceRange": { "low": 325000, "mid": 375000, "high": 425000 }
+    },
+    "experimental": {
+      "foo": "intentional unknown field to trip enforceSchema"
+    }
+  }
+}
