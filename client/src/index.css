@@ -1,0 +1,160 @@
+/* ============================================================================
+   Forbes Capretto / Infinity Markets — Editorial / Institutional CSS reset
+   v4.2.0 UI overhaul. Global only — components style themselves via tokens.
+   ============================================================================ */
+
+/* ── CSS variables mirror tokens.js so plain CSS can use them too ──────────── */
+:root {
+  --fc-canvas: #F7F3EC;
+  --fc-parchment: #EFE8DA;
+  --fc-surface: #FFFFFF;
+  --fc-ink: #1A1A1A;
+  --fc-ink-soft: #3A3A3A;
+  --fc-ink-muted: #6B6B66;
+  --fc-ink-faint: #8F8F88;
+  --fc-rule: rgba(26,26,26,0.08);
+  --fc-rule-strong: rgba(26,26,26,0.18);
+  --fc-rule-emphasis: rgba(26,26,26,0.42);
+  --fc-green: #004D41;
+  --fc-green-deep: #003329;
+  --fc-green-soft: #0F6655;
+  --fc-green-tint: rgba(0,77,65,0.06);
+  --fc-green-wash: rgba(0,77,65,0.12);
+  --fc-brass: #D3B257;
+  --fc-brass-soft: #E8CB85;
+  --fc-brass-ink: #7A5A1F;
+  --fc-brass-tint: rgba(211,178,87,0.10);
+  --fc-brass-wash: rgba(211,178,87,0.22);
+  --fc-red: #A82020;
+  --fc-red-tint: rgba(168,32,32,0.08);
+  --fc-blue: #0B4EA0;
+  --fc-blue-tint: rgba(11,78,160,0.08);
+  --fc-purple: #6C4C9C;
+  --fc-purple-tint: rgba(108,76,156,0.10);
+
+  --fc-font-display: "Source Serif 4", "Source Serif Pro", Georgia, "Times New Roman", serif;
+  --fc-font-body: "Inter", "Helvetica Neue", Arial, sans-serif;
+  --fc-font-mono: "JetBrains Mono", "SF Mono", Menlo, Consolas, monospace;
+}
+
+*, *::before, *::after { box-sizing: border-box; margin: 0; padding: 0; }
+
+html { font-size: 16px; -webkit-text-size-adjust: 100%; }
+
+html, body, #root {
+  height: 100%;
+  font-family: var(--fc-font-body);
+  background: var(--fc-canvas);
+  color: var(--fc-ink);
+  -webkit-font-smoothing: antialiased;
+  -moz-osx-font-smoothing: grayscale;
+  text-rendering: optimizeLegibility;
+  font-variant-numeric: tabular-nums lining-nums;
+  font-feature-settings: "kern", "liga", "calt", "tnum", "lnum";
+}
+
+body { line-height: 1.55; }
+
+input, button, select, textarea { font-family: inherit; font-size: inherit; color: inherit; }
+
+button { background: none; border: 0; cursor: pointer; }
+
+img, svg { display: block; max-width: 100%; }
+
+/* ── Editorial type rhythm helpers (used by class) ─────────────────────── */
+.fc-display {
+  font-family: var(--fc-font-display);
+  font-weight: 400;
+  letter-spacing: -0.015em;
+  line-height: 1.18;
+}
+.fc-display-tight {
+  font-family: var(--fc-font-display);
+  font-weight: 400;
+  letter-spacing: -0.02em;
+  line-height: 1.08;
+}
+.fc-eyebrow {
+  font-family: var(--fc-font-body);
+  font-size: 11px;
+  font-weight: 600;
+  letter-spacing: 0.18em;
+  text-transform: uppercase;
+  color: var(--fc-green);
+}
+.fc-ribbon {
+  font-family: var(--fc-font-body);
+  font-size: 10px;
+  font-weight: 700;
+  letter-spacing: 0.32em;
+  text-transform: uppercase;
+}
+.fc-figure {
+  font-family: var(--fc-font-body);
+  font-variant-numeric: tabular-nums lining-nums;
+  font-feature-settings: "tnum", "lnum";
+}
+.fc-mono { font-family: var(--fc-font-mono); }
+
+/* Hairline rule */
+.fc-rule {
+  border: 0;
+  border-top: 1px solid var(--fc-rule);
+  width: 100%;
+  margin: 0;
+}
+.fc-rule-strong { border-top-color: var(--fc-rule-strong); }
+.fc-rule-emphasis { border-top: 2px solid var(--fc-green); }
+
+/* Selection */
+::selection { background: var(--fc-brass); color: #1A1A1A; }
+
+/* Scrollbar — slim and ivory-friendly */
+::-webkit-scrollbar { width: 10px; height: 10px; }
+::-webkit-scrollbar-track { background: var(--fc-canvas); }
+::-webkit-scrollbar-thumb {
+  background: rgba(26,26,26,0.18);
+  border-radius: 6px;
+  border: 2px solid var(--fc-canvas);
+}
+::-webkit-scrollbar-thumb:hover { background: rgba(26,26,26,0.32); }
+
+/* Focus ring — accessible without being loud */
+:focus-visible {
+  outline: 2px solid var(--fc-brass);
+  outline-offset: 2px;
+}
+
+/* Links */
+a {
+  color: var(--fc-green);
+  text-decoration: none;
+  border-bottom: 1px solid rgba(0,77,65,0.32);
+  transition: color 120ms ease, border-color 120ms ease;
+}
+a:hover {
+  color: var(--fc-brass-ink);
+  border-bottom-color: var(--fc-brass);
+}
+a.fc-link-naked { border-bottom: 0; }
+
+/* Print: only used when the app embeds PDF previews; pdf.js renders separately */
+@media print {
+  html, body, #root { background: #FFFFFF; }
+}
+
+/* Animations — restrained */
+@keyframes fc-fade-in { from { opacity: 0; } to { opacity: 1; } }
+@keyframes fc-slide-up { from { opacity: 0; transform: translateY(8px); } to { opacity: 1; transform: translateY(0); } }
+.fc-fade-in { animation: fc-fade-in 240ms ease-out both; }
+.fc-slide-up { animation: fc-slide-up 320ms cubic-bezier(0.2, 0.8, 0.2, 1) both; }
+
+/* Spinner used by Loading + DeliverableModal */
+@keyframes fc-spin { to { transform: rotate(360deg); } }
+.fc-spinner {
+  width: 28px; height: 28px;
+  border: 2px solid var(--fc-rule);
+  border-top-color: var(--fc-green);
+  border-radius: 50%;
+  animation: fc-spin 720ms linear infinite;
+}
