@@ -1,0 +1,677 @@
+<!DOCTYPE html><html><head><meta charset="utf-8"><title>Infinity Markets — Cranberry Township (Enveloped)</title><style>
+@import url('https://fonts.googleapis.com/css2?family=Source+Serif+4:opsz,wght@8..60,300;8..60,400;8..60,500;8..60,600;8..60,700&family=Inter:wght@300;400;500;600;700&family=JetBrains+Mono:wght@400;500&display=swap');
+
+/* ── Editorial page setup ─────────────────────────────────────────────── */
+@page {
+  size: Letter;
+  margin: 0.6in 0.65in 0.7in;
+  @bottom-left   { content: "FORBES CAPRETTO  ·  INFINITY MARKETS"; font-family: 'Inter', sans-serif; font-size: 8pt; color: #6B6B66; letter-spacing: 0.18em; }
+  @bottom-center { content: "—"; color: #B4B4AE; }
+  @bottom-right  { content: "Page " counter(page) " of " counter(pages); font-family: 'Inter', sans-serif; font-size: 8pt; color: #6B6B66; font-variant-numeric: tabular-nums; }
+}
+@page:first {
+  margin: 0;
+  @bottom-left   { content: ""; }
+  @bottom-center { content: ""; }
+  @bottom-right  { content: ""; }
+}
+@page :left  { @top-left  { content: ""; } }
+@page :right { @top-right { content: ""; } }
+
+* { box-sizing: border-box; margin: 0; padding: 0; }
+
+html, body {
+  font-family: 'Inter', 'Helvetica Neue', Arial, sans-serif;
+  font-size: 10.25pt;
+  color: #1A1A1A;
+  line-height: 1.55;
+  background: #FFFFFF;
+  -webkit-font-smoothing: antialiased;
+  font-variant-numeric: tabular-nums lining-nums;
+  font-feature-settings: 'kern', 'liga', 'tnum', 'lnum';
+}
+
+/* ── Headings (display serif, restrained) ────────────────────────────── */
+h1 { font-family: 'Source Serif 4', Georgia, serif; font-weight: 400; font-size: 30pt; color: #004D41; letter-spacing: -0.018em; line-height: 1.12; margin-bottom: 8pt; }
+h2 {
+  font-family: 'Source Serif 4', Georgia, serif;
+  font-weight: 400;
+  font-size: 20pt;
+  color: #1A1A1A;
+  letter-spacing: -0.012em;
+  line-height: 1.18;
+  margin: 28pt 0 6pt;
+  padding-top: 10pt;
+  padding-bottom: 4pt;
+  border-top: 2pt solid #004D41;
+  page-break-after: avoid;
+}
+h2 .num {
+  display: inline-block;
+  font-family: 'Source Serif 4', Georgia, serif;
+  font-style: italic;
+  font-weight: 300;
+  color: #B47C10;
+  margin-right: 12pt;
+  font-size: 18pt;
+  letter-spacing: -0.01em;
+}
+h2 .eyebrow {
+  display: block;
+  font-family: 'Inter', sans-serif;
+  font-size: 8pt;
+  font-weight: 700;
+  letter-spacing: 0.20em;
+  text-transform: uppercase;
+  color: #004D41;
+  margin-bottom: 4pt;
+}
+h3 {
+  font-family: 'Inter', sans-serif;
+  font-weight: 600;
+  font-size: 11pt;
+  color: #1A1A1A;
+  margin: 14pt 0 6pt;
+  letter-spacing: 0.005em;
+  page-break-after: avoid;
+}
+h3.eyebrow {
+  font-family: 'Inter', sans-serif;
+  font-weight: 700;
+  font-size: 8.5pt;
+  letter-spacing: 0.18em;
+  color: #004D41;
+  text-transform: uppercase;
+  margin: 14pt 0 4pt;
+}
+.lede {
+  font-family: 'Source Serif 4', Georgia, serif;
+  font-size: 12.5pt;
+  line-height: 1.55;
+  color: #1A1A1A;
+  font-weight: 400;
+  letter-spacing: -0.005em;
+  margin: 4pt 0 18pt;
+  max-width: 6.4in;
+}
+
+p {
+  margin-bottom: 9pt;
+  color: #1A1A1A;
+  hyphens: auto;
+}
+p.narrative { font-size: 10pt; color: #3A3A3A; line-height: 1.65; margin: 6pt 0 14pt; }
+p.note { font-size: 8.5pt; color: #6B6B66; font-style: italic; line-height: 1.55; margin-top: 6pt; }
+
+a, a:visited { color: #004D41; text-decoration: none; border-bottom: 0.5pt solid rgba(0, 77, 65, 0.4); }
+
+hr.rule { border: 0; border-top: 0.75pt solid rgba(26, 26, 26, 0.12); margin: 14pt 0; }
+hr.rule.brass { border-top: 1.5pt solid #D3B257; margin: 18pt 0; }
+hr.rule.green { border-top: 1.5pt solid #004D41; margin: 18pt 0; }
+
+/* ── Cover page ───────────────────────────────────────────────────────── */
+.cover {
+  page-break-after: always;
+  position: relative;
+  height: 11in;
+  width: 8.5in;
+  padding: 0.85in 0.85in 0.7in;
+  color: #FFFFFF;
+  background: #004D41;
+  display: flex;
+  flex-direction: column;
+  justify-content: space-between;
+  overflow: hidden;
+}
+.cover::before {
+  content: "";
+  position: absolute;
+  top: 0; right: 0;
+  width: 4in; height: 11in;
+  background:
+    repeating-linear-gradient(135deg, rgba(255,255,255,0.025) 0 1.5pt, transparent 1.5pt 14pt);
+  pointer-events: none;
+}
+.cover-mark {
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+  position: relative;
+  z-index: 2;
+}
+.cover-mark img { height: 36pt; }
+.cover-mark .id {
+  font-family: 'Inter', sans-serif;
+  font-size: 8pt;
+  font-weight: 600;
+  letter-spacing: 0.32em;
+  color: #D3B257;
+  text-transform: uppercase;
+}
+.cover-body {
+  position: relative;
+  z-index: 2;
+  display: flex;
+  flex-direction: column;
+  gap: 18pt;
+  margin-top: 2in;
+}
+.cover-eyebrow {
+  font-family: 'Inter', sans-serif;
+  font-size: 9pt;
+  font-weight: 600;
+  letter-spacing: 0.32em;
+  color: #D3B257;
+  text-transform: uppercase;
+}
+.cover-title {
+  font-family: 'Source Serif 4', Georgia, serif;
+  font-weight: 400;
+  font-size: 56pt;
+  color: #FFFFFF;
+  letter-spacing: -0.025em;
+  line-height: 1.04;
+  max-width: 6.6in;
+}
+.cover-title em { font-style: italic; color: #D3B257; }
+.cover-sub {
+  font-family: 'Source Serif 4', Georgia, serif;
+  font-weight: 300;
+  font-size: 17pt;
+  color: rgba(255,255,255,0.85);
+  letter-spacing: -0.005em;
+  line-height: 1.4;
+  max-width: 5.6in;
+  margin-top: 2pt;
+}
+.cover-meta {
+  position: relative;
+  z-index: 2;
+  display: grid;
+  grid-template-columns: repeat(4, 1fr);
+  gap: 18pt;
+  border-top: 1pt solid rgba(255,255,255,0.18);
+  padding-top: 22pt;
+}
+.cover-meta .cell .l {
+  font-family: 'Inter', sans-serif;
+  font-size: 7.5pt;
+  font-weight: 600;
+  letter-spacing: 0.20em;
+  color: #D3B257;
+  text-transform: uppercase;
+  margin-bottom: 4pt;
+}
+.cover-meta .cell .v {
+  font-family: 'Source Serif 4', Georgia, serif;
+  font-size: 13pt;
+  font-weight: 400;
+  color: #FFFFFF;
+  letter-spacing: -0.005em;
+  line-height: 1.25;
+}
+.cover-verdict {
+  position: absolute;
+  bottom: 0.85in;
+  right: 0.85in;
+  z-index: 3;
+  text-align: right;
+}
+.cover-verdict .l {
+  font-family: 'Inter', sans-serif;
+  font-size: 7.5pt;
+  font-weight: 700;
+  letter-spacing: 0.32em;
+  color: rgba(255,255,255,0.62);
+  margin-bottom: 6pt;
+}
+.cover-verdict .pill {
+  display: inline-block;
+  font-family: 'Inter', sans-serif;
+  font-size: 13pt;
+  font-weight: 700;
+  letter-spacing: 0.32em;
+  padding: 9pt 22pt;
+  border-radius: 30pt;
+  text-transform: uppercase;
+}
+.pill-go        { background: #D3B257; color: #003329; }
+.pill-condition { background: rgba(211,178,87,0.55); color: #FFFFFF; border: 1pt solid #D3B257; }
+.pill-no-go     { background: #FFFFFF; color: #7A1B1B; border: 1pt solid #FFFFFF; }
+
+/* ── Inside-cover (TOC) ───────────────────────────────────────────────── */
+.toc-page { page-break-after: always; padding-top: 12pt; }
+.toc-eyebrow {
+  font-family: 'Inter', sans-serif;
+  font-size: 8pt;
+  font-weight: 700;
+  letter-spacing: 0.32em;
+  color: #004D41;
+  text-transform: uppercase;
+  margin-bottom: 6pt;
+}
+.toc-title {
+  font-family: 'Source Serif 4', Georgia, serif;
+  font-weight: 400;
+  font-size: 28pt;
+  color: #1A1A1A;
+  letter-spacing: -0.018em;
+  line-height: 1.1;
+  margin-bottom: 24pt;
+}
+.toc-list { list-style: none; }
+.toc-list li {
+  display: grid;
+  grid-template-columns: 30pt 1fr auto;
+  gap: 12pt;
+  padding: 10pt 0;
+  border-bottom: 0.5pt solid rgba(26,26,26,0.10);
+  font-family: 'Inter', sans-serif;
+  font-size: 11pt;
+  color: #1A1A1A;
+}
+.toc-list li .num {
+  font-family: 'Source Serif 4', Georgia, serif;
+  font-style: italic;
+  font-weight: 300;
+  color: #B47C10;
+  font-size: 13pt;
+}
+.toc-list li .pg {
+  font-family: 'Inter', sans-serif;
+  font-size: 9.5pt;
+  color: #6B6B66;
+  font-variant-numeric: tabular-nums;
+  letter-spacing: 0.04em;
+}
+
+/* ── Executive summary ────────────────────────────────────────────────── */
+.exec-summary { page-break-after: always; padding-top: 4pt; }
+.exec-grid {
+  display: grid;
+  grid-template-columns: repeat(4, 1fr);
+  gap: 12pt;
+  margin: 16pt 0 22pt;
+}
+.exec-tile {
+  background: #FAF7F0;
+  border: 0.5pt solid rgba(26,26,26,0.10);
+  border-left: 2pt solid #004D41;
+  padding: 12pt 14pt;
+  page-break-inside: avoid;
+}
+.exec-tile.brass { border-left-color: #D3B257; }
+.exec-tile .l {
+  font-family: 'Inter', sans-serif;
+  font-size: 7.5pt;
+  font-weight: 700;
+  letter-spacing: 0.18em;
+  color: #004D41;
+  text-transform: uppercase;
+  margin-bottom: 6pt;
+}
+.exec-tile .v {
+  font-family: 'Source Serif 4', Georgia, serif;
+  font-size: 18pt;
+  font-weight: 400;
+  color: #1A1A1A;
+  letter-spacing: -0.012em;
+  line-height: 1.05;
+}
+.exec-tile .s {
+  font-family: 'Inter', sans-serif;
+  font-size: 8pt;
+  color: #6B6B66;
+  margin-top: 4pt;
+}
+.exec-block {
+  display: grid;
+  grid-template-columns: 1fr 1fr;
+  gap: 18pt;
+  margin-top: 18pt;
+}
+.exec-callouts {
+  background: #F7F3EC;
+  border-left: 2pt solid #D3B257;
+  padding: 14pt 18pt;
+}
+.exec-callouts h4 {
+  font-family: 'Inter', sans-serif;
+  font-size: 8pt;
+  font-weight: 700;
+  letter-spacing: 0.18em;
+  color: #7A5A1F;
+  text-transform: uppercase;
+  margin-bottom: 8pt;
+}
+.exec-callouts ol { margin-left: 16pt; padding-left: 0; }
+.exec-callouts li { font-size: 10pt; line-height: 1.5; margin-bottom: 6pt; color: #3A3A3A; }
+
+/* ── KPI grid ─────────────────────────────────────────────────────────── */
+.kpi-grid { display: grid; grid-template-columns: repeat(3, 1fr); gap: 10pt; margin: 12pt 0; }
+.kpi-grid.four { grid-template-columns: repeat(4, 1fr); }
+.kpi-grid.five { grid-template-columns: repeat(5, 1fr); }
+.kpi-grid.six  { grid-template-columns: repeat(6, 1fr); }
+.kpi {
+  background: #FFFFFF;
+  border: 0.5pt solid rgba(26,26,26,0.12);
+  border-left: 2pt solid #004D41;
+  padding: 11pt 12pt;
+  page-break-inside: avoid;
+  display: flex;
+  flex-direction: column;
+  gap: 4pt;
+}
+.kpi.brass { border-left-color: #D3B257; }
+.kpi.red   { border-left-color: #A82020; }
+.kpi .label {
+  font-family: 'Inter', sans-serif;
+  font-size: 7pt;
+  font-weight: 700;
+  letter-spacing: 0.16em;
+  color: #004D41;
+  text-transform: uppercase;
+}
+.kpi .value {
+  font-family: 'Source Serif 4', Georgia, serif;
+  font-size: 22pt;
+  font-weight: 400;
+  letter-spacing: -0.018em;
+  line-height: 1.04;
+  color: #1A1A1A;
+}
+.kpi .value.accent { color: #D3B257; }
+.kpi .value.green  { color: #004D41; }
+.kpi .value.red    { color: #A82020; }
+.kpi .value.muted  { color: #6B6B66; }
+.kpi .value.blue   { color: #0B4EA0; }
+.kpi .sub {
+  font-family: 'Inter', sans-serif;
+  font-size: 8pt;
+  color: #6B6B66;
+  margin-top: 2pt;
+}
+.kpi .delta {
+  font-family: 'Inter', sans-serif;
+  font-size: 8pt;
+  font-weight: 600;
+  display: inline-block;
+}
+.kpi .delta.pos { color: #0F6655; }
+.kpi .delta.neg { color: #A82020; }
+
+/* ── Tables (editorial hairline rules) ────────────────────────────────── */
+table {
+  width: 100%;
+  border-collapse: collapse;
+  margin: 8pt 0 14pt;
+  font-family: 'Inter', sans-serif;
+  font-size: 9pt;
+  font-variant-numeric: tabular-nums lining-nums;
+  page-break-inside: auto;
+}
+th {
+  background: transparent;
+  color: #004D41;
+  padding: 8pt 10pt 6pt;
+  text-align: left;
+  font-family: 'Inter', sans-serif;
+  font-weight: 700;
+  font-size: 7.5pt;
+  letter-spacing: 0.18em;
+  text-transform: uppercase;
+  border-bottom: 1.25pt solid #004D41;
+  vertical-align: bottom;
+}
+td {
+  padding: 6.5pt 10pt;
+  border-bottom: 0.5pt solid rgba(26,26,26,0.08);
+  vertical-align: top;
+  color: #1A1A1A;
+}
+tr:nth-child(even) td { background: #FAF7F0; }
+tr:hover td { background: #F1EAD8; }
+.text-right { text-align: right; }
+.text-center { text-align: center; }
+.bold { font-weight: 600; }
+.highlight-row td { background: rgba(0, 77, 65, 0.07) !important; font-weight: 600; }
+
+.scope-tag {
+  display: inline-block;
+  background: rgba(211,178,87,0.14);
+  color: #7A5A1F;
+  padding: 2pt 8pt;
+  font-size: 7pt;
+  font-weight: 700;
+  letter-spacing: 0.10em;
+  text-transform: uppercase;
+  border-radius: 10pt;
+  margin-left: 6pt;
+}
+
+/* ── Bar charts (editorial) ───────────────────────────────────────────── */
+.bar-chart { margin: 10pt 0 12pt; }
+.bar-row { display: flex; align-items: center; margin-bottom: 5pt; }
+.bar-label { width: 138pt; font-family: 'Inter', sans-serif; font-size: 8.5pt; color: #3A3A3A; text-align: right; padding-right: 10pt; flex-shrink: 0; }
+.bar-track { flex: 1; height: 14pt; background: #F1EAD8; border-radius: 1pt; overflow: hidden; position: relative; }
+.bar-fill { height: 100%; display: flex; align-items: center; padding-left: 8pt; font-family: 'Inter', sans-serif; font-size: 7pt; color: #FFFFFF; font-weight: 600; letter-spacing: 0.04em; }
+.bar-fill.green { background: #004D41; }
+.bar-fill.brass { background: #D3B257; color: #1A1A1A; }
+.bar-fill.muted { background: rgba(0,77,65,0.42); }
+
+/* ── SWOT ─────────────────────────────────────────────────────────────── */
+.swot-grid { display: grid; grid-template-columns: 1fr 1fr; gap: 12pt; margin: 12pt 0; }
+.swot-box {
+  background: #FFFFFF;
+  border: 0.5pt solid rgba(26,26,26,0.10);
+  border-top: 2pt solid #004D41;
+  padding: 14pt;
+  page-break-inside: avoid;
+}
+.swot-box h3 { margin-top: 0; font-size: 9pt; font-weight: 700; letter-spacing: 0.16em; text-transform: uppercase; color: #004D41; margin-bottom: 8pt; }
+.swot-box ul { padding-left: 0; list-style: none; margin-top: 4pt; }
+.swot-box li { margin-bottom: 5pt; font-size: 9pt; line-height: 1.5; color: #3A3A3A; padding-left: 12pt; position: relative; }
+.swot-box li::before { content: "—"; position: absolute; left: 0; color: #D3B257; font-weight: 700; }
+.s-box { border-top-color: #004D41; }
+.w-box { border-top-color: #A82020; }
+.w-box h3 { color: #A82020; }
+.o-box { border-top-color: #D3B257; }
+.o-box h3 { color: #7A5A1F; }
+.t-box { border-top-color: #B47C10; }
+.t-box h3 { color: #B47C10; }
+
+/* ── Score block (scorecard tab) ──────────────────────────────────────── */
+.score-big { text-align: center; margin: 24pt 0 18pt; padding: 22pt 0; border-top: 1.5pt solid #004D41; border-bottom: 1.5pt solid #004D41; }
+.score-big .number { font-family: 'Source Serif 4', Georgia, serif; font-size: 56pt; font-weight: 400; letter-spacing: -0.02em; line-height: 1; color: #004D41; }
+.score-big .out-of { font-family: 'Source Serif 4', Georgia, serif; font-style: italic; font-weight: 300; font-size: 18pt; color: #6B6B66; margin-left: 6pt; }
+.score-big .rec { display: inline-block; margin-top: 12pt; padding: 8pt 24pt; font-family: 'Inter', sans-serif; font-size: 11pt; font-weight: 700; letter-spacing: 0.32em; text-transform: uppercase; border-radius: 30pt; }
+.rec-strong  { background: #004D41; color: #FFFFFF; }
+.rec-caution { background: #D3B257; color: #3A2A06; }
+.rec-pass    { background: #FFFFFF; color: #7A1B1B; border: 1pt solid #7A1B1B; }
+
+/* ── Provenance chips (V41-4 lineage, editorial recolor) ──────────────── */
+.prov, .prov-error, .prov-proxy, .prov-asp-err{
+  display: inline-block;
+  font-family: 'Inter', sans-serif;
+  font-size: 6.5pt;
+  font-weight: 700;
+  letter-spacing: 0.10em;
+  padding: 1.5pt 6pt;
+  border-radius: 10pt;
+  text-transform: uppercase;
+  margin-left: 4pt;
+  vertical-align: middle;
+  line-height: 1.3;
+}
+.prov-measured{ color: #003329; background: rgba(0,77,65,0.12); border: 0.5pt solid #004D41; }
+.prov-derived{ color: #072E60; background: rgba(11,78,160,0.10); border: 0.5pt solid #0B4EA0; }
+.prov-modeled{ color: #6F4B08; background: rgba(180,124,16,0.12); border: 0.5pt solid #B47C10; }
+.prov-llm{ color: #3F2D5C; background: rgba(108,76,156,0.12); border: 0.5pt solid #6C4C9C; }
+.prov-missing{ color: #6B6B66; background: rgba(26,26,26,0.04); border: 0.5pt solid rgba(26,26,26,0.20); }
+.prov-error{ color: #6B1212; background: rgba(168,32,32,0.10); border: 0.5pt solid #A82020; }
+.prov-error, .prov-asp-err{ color: #6B1212; background: rgba(168,32,32,0.10); border: 0.5pt solid #A82020; }
+.prov-proxy{ color: #6F4B08; background: rgba(211,178,87,0.18); border: 0.5pt solid #B47C10; }
+
+.prov-error-block{
+  margin: 10pt 0;
+  padding: 12pt 14pt;
+  background: rgba(168,32,32,0.05);
+  border-left: 2pt solid #A82020;
+  font-size: 9pt;
+  line-height: 1.5;
+  color: #1A1A1A;
+}
+.prov-error-block strong { color: #A82020; font-weight: 700; }
+
+/* ── Disclaimer + Source manifest (Appendix A) ────────────────────────── */
+.page-break { page-break-before: always; }
+.disclaimer { margin-top: 24pt; padding: 14pt 16pt; background: #FAF7F0; border: 0.5pt solid rgba(26,26,26,0.10); border-left: 2pt solid #D3B257; font-size: 8pt; color: #3A3A3A; line-height: 1.65; }
+.disclaimer strong { color: #1A1A1A; }
+
+.source-list { font-size: 8pt; color: #3A3A3A; }
+.source-list td { padding: 4pt 8pt; font-size: 8pt; vertical-align: top; }
+.source-list th { font-size: 7pt; }
+.source-list code, .manifest-table code {
+  font-family: 'JetBrains Mono', 'SF Mono', Menlo, monospace;
+  font-size: 7.5pt;
+  color: #1A1A1A;
+  background: rgba(26,26,26,0.04);
+  padding: 1pt 4pt;
+  border-radius: 2pt;
+}
+.manifest-table {
+  font-size: 8pt;
+}
+.manifest-table th { font-size: 7pt; }
+.manifest-table .url { color: #004D41; word-break: break-all; }
+
+/* ── Section number ribbon ────────────────────────────────────────────── */
+.section-mast {
+  display: flex;
+  align-items: flex-end;
+  gap: 14pt;
+  margin: 30pt 0 0;
+  padding-bottom: 6pt;
+  border-bottom: 2pt solid #004D41;
+  page-break-after: avoid;
+}
+.section-mast .num {
+  font-family: 'Source Serif 4', Georgia, serif;
+  font-style: italic;
+  font-weight: 300;
+  color: #B47C10;
+  font-size: 36pt;
+  letter-spacing: -0.025em;
+  line-height: 1;
+  flex-shrink: 0;
+}
+.section-mast .label {
+  flex: 1;
+}
+.section-mast .label .eyebrow {
+  font-family: 'Inter', sans-serif;
+  font-size: 8pt;
+  font-weight: 700;
+  letter-spacing: 0.20em;
+  color: #004D41;
+  text-transform: uppercase;
+}
+.section-mast .label h2 {
+  margin: 4pt 0 0;
+  padding: 0;
+  border: 0;
+  font-family: 'Source Serif 4', Georgia, serif;
+  font-size: 22pt;
+  font-weight: 400;
+  color: #1A1A1A;
+  letter-spacing: -0.012em;
+  line-height: 1.1;
+}
+
+/* ── Chip strip on KPI rows ───────────────────────────────────────────── */
+.chip-strip { display: flex; align-items: center; gap: 6pt; flex-wrap: wrap; margin-top: 4pt; }
+
+/* ── Legacy class compat shims (for existing classes still emitted) ───── */
+.kpi .value.orange { color: #B47C10; }
+.bar-fill.gold { background: #D3B257; color: #1A1A1A; }
+.bar-fill.blue { background: #0B4EA0; }
+
+/* ── Legacy class compat additions (v4.1.x → v4.2.0 migration) ────────── */
+.def-list {
+  display: grid;
+  grid-template-columns: 130pt 1fr;
+  gap: 6pt 16pt;
+  margin: 8pt 0 14pt;
+  padding: 10pt 12pt;
+  background: #FAF7F0;
+  border-left: 2pt solid #D3B257;
+  border-radius: 1pt;
+}
+.def-list dt { font-family: 'Inter', sans-serif; font-size: 8pt; font-weight: 700; letter-spacing: 0.16em; color: #004D41; text-transform: uppercase; padding-top: 1pt; }
+.def-list dd { font-family: 'Inter', sans-serif; font-size: 9.5pt; color: #1A1A1A; }
+.footer-note { margin-top: 10pt; padding-top: 8pt; font-family: 'Inter', sans-serif; font-size: 8pt; color: #6B6B66; line-height: 1.55; border-top: 0.5pt solid rgba(26,26,26,0.10); }
+.score-summary { margin: 12pt 0; padding: 14pt 18pt; background: #FAF7F0; border-left: 2pt solid #004D41; }
+.score-summary p { margin: 0; font-size: 10pt; color: #3A3A3A; line-height: 1.55; }
+
+/* Legacy wrapper alias for older emit paths that still use the wrapper. */
+.prov-chip{ display: inline-block; font-family: 'Inter', sans-serif; font-size: 6.5pt; font-weight: 700; letter-spacing: 0.10em; padding: 1.5pt 6pt; border-radius: 10pt; text-transform: uppercase; margin-left: 4pt; vertical-align: middle; line-height: 1.3; }
+.prov-chip.prov-dot{ padding: 0 4pt; font-size: 9pt; line-height: 1; letter-spacing: 0; }
+.prov-error-head{ font-family: 'Inter', sans-serif; font-weight: 700; color: #A82020; font-size: 9.5pt; letter-spacing: 0.04em; }
+.prov-error-body{ color: #3A3A3A; font-size: 9pt; margin-top: 4pt; line-height: 1.5; }
+
+</style></head><body>
+  <div class="cover">
+    <div class="cover-mark">
+      <img src="data:image/svg+xml;base64,PD94bWwgdmVyc2lvbj0iMS4wIiBlbmNvZGluZz0iVVRGLTgiPz4KPHN2ZyBpZD0iTGF5ZXJfMSIgeG1sbnM9Imh0dHA6Ly93d3cudzMub3JnLzIwMDAvc3ZnIiB2ZXJzaW9uPSIxLjEiIHZpZXdCb3g9IjAgMCAyNTguODggNDcuMDQiPgogIDwhLS0gR2VuZXJhdG9yOiBBZG9iZSBJbGx1c3RyYXRvciAyOS44LjYsIFNWRyBFeHBvcnQgUGx1Zy1JbiAuIFNWRyBWZXJzaW9uOiAyLjEuMSBCdWlsZCAxKSAgLS0+CiAgPGRlZnM+CiAgICA8c3R5bGU+CiAgICAgIC5zdDAgewogICAgICAgIGZpbGw6ICNmZmY7CiAgICAgIH0KCiAgICAgIC5zdDEgewogICAgICAgIGZpbGw6ICNkM2IyNTc7CiAgICAgIH0KICAgIDwvc3R5bGU+CiAgPC9kZWZzPgogIDxwYXRoIGNsYXNzPSJzdDAiIGQ9Ik00NC43MiwxMC42M3Y4LjkyaC42MmMuOC4wMywxLjYxLS4xMiwyLjM1LS40NC42NC0uMzIsMS4xOC0uODMsMS41NC0xLjQ2LjQ2LS44Ni43NS0xLjguODMtMi43N2guNTZ2MTAuOTJoLS41NmMtLjIxLTIuMDYtLjc1LTMuNDItMS42Ni00LjA5LS44OC0uNjYtMS45NS0xLTMuMDUtLjk4aC0uNjJ2Ny4wOWMtLjA1LjcuMDIsMS40LjE5LDIuMDguMTYuMzIuNDEuNTcuNzMuNzMuNDUuMjMuOTUuMzQsMS40NS4zMWguNzN2LjU4aC0xMS4zMXYtLjU4aC43M2MuNTMuMDMsMS4wNS0uMDksMS41MS0uMzMuMy0uMTcuNTMtLjQ0LjY0LS43Ny4xNi0uNjYuMjItMS4zNC4xNy0yLjAydi0xNC43MmMuMDQtLjctLjAyLTEuNC0uMTctMi4wOS0uMTYtLjMxLS40LS41Ni0uNzEtLjczLS40NS0uMjMtLjk1LS4zNC0xLjQ1LS4zMWgtLjcydi0uNThoMTguMjR2Ni4yM2gtLjY2Yy0uMDQtMS4xOC0uNDMtMi4zMS0xLjE0LTMuMjUtLjctLjc3LTEuNjMtMS4yOS0yLjY2LTEuNDgtMS4xNy0uMjEtMi4zNi0uMjktMy41NS0uMjVoLTIuMDF2LS4wMloiLz4KICA8cGF0aCBjbGFzcz0ic3QwIiBkPSJNNjIuMTMsMTUuNjhjMS4yOCwwLDIuNTQuMzQsMy42MywxLDEuMTMuNjcsMi4wMiwxLjY4LDIuNTUsMi44OC41OSwxLjI3Ljg5LDIuNjYuODcsNC4wNy4wNywxLjkxLS41LDMuNzktMS42Miw1LjM0LTEuMjUsMS43MS0zLjI2LDIuNjgtNS4zOCwyLjYxLTIuMDEuMS0zLjk1LS43OC01LjE5LTIuMzgtMi40NS0zLjMtMi40My03LjgzLjA0LTExLjExLDEuMi0xLjU4LDMuMS0yLjQ4LDUuMDgtMi40TTYyLjIsMTYuODJjLS41MywwLTEuMDQuMjItMS4zOS42Mi0uNS43Mi0uNzYsMS41Ny0uNzcsMi40NC0uMTIsMS4yMS0uMTksMi45LS4xOSw1LjA3LDAsMS4wNy4wNywyLjE1LjIzLDMuMjEuMDcuNjQuMzMsMS4yNC43NSwxLjczLjMzLjM3LjgxLjU5LDEuMzEuNTguNDMuMDEuODYtLjEzLDEuMi0uNC40NC0uNC43My0uOTQuODMtMS41Mi4yNy0yLjA0LjM3LTQuMDkuMzEtNi4xNS4wNS0xLjI1LS4wNS0yLjUxLS4zMS0zLjczLS4xNC0uNTctLjQ1LTEuMDktLjg5LTEuNDgtLjI5LS4yNy0uNjgtLjQtMS4wOC0uMzgiLz4KICA8cGF0aCBjbGFzcz0ic3QwIiBkPSJNNzcuMzksMTYuNTd2My40Yy42Ny0xLjE4LDEuNTUtMi4yMywyLjU5LTMuMDguNjMtLjQ3LDEuMzgtLjc0LDIuMTYtLjc3LjU0LS4wMywxLjA2LjE4LDEuNDMuNTYuMzguNDMuNTcuOTkuNTQsMS41Ni4wNC42LS4xNSwxLjItLjUyLDEuNjctLjMxLjM3LS43Ni41OS0xLjI1LjU4LS41NCwwLTEuMDYtLjE5LTEuNDctLjU0LS40Mi0uMzUtLjY2LS41Ni0uNzMtLjYtLjExLS4wNy0uMjQtLjEtLjM3LS4xLS4zMiwwLS42My4xMy0uODcuMzUtLjQ4LjQxLS44Mi45Ni0xLDEuNTYtLjM1LDEuMTEtLjUyLDIuMjYtLjUyLDMuNDJ2My40NGwuMDIuOWMtLjAyLjM5LjAxLjc4LjEsMS4xNy4xMS4yNy4zLjQ5LjU2LjYyLjQuMTYuODMuMjQsMS4yNy4yNXYuNThoLTguMDJ2LS41OGMuNDkuMDEuOTctLjE5LDEuMzEtLjU0LjMyLS43Ni40NC0xLjYuMzUtMi40MnYtOC4yOGMuMDMtLjU1LS4wMS0xLjA5LS4xMi0xLjYzLS4wOS0uMjYtLjI1LS40OS0uNDYtLjY3LS4zMy0uMTctLjY5LS4yNy0xLjA2LS4yOXYtLjU4aDYuMDYsMFoiLz4KICA8cGF0aCBjbGFzcz0ic3QwIiBkPSJNOTEuNzEsOS4zOHY4LjI2YzEuMDMtMS4yMSwyLjUyLTEuOTIsNC4xMS0xLjk2LDEuMDMsMCwyLjA0LjMxLDIuODkuOS45NC42MywxLjY3LDEuNTIsMi4xMiwyLjU2LjUzLDEuMjEuOCwyLjUyLjc3LDMuODQuMDIsMS41NC0uMzIsMy4wNy0uOTcsNC40Ni0uNTYsMS4yNC0xLjQ2LDIuMjktMi41OSwzLjA0LTEuMTEuNzEtMi40LDEuMDctMy43MSwxLjA0LTEuNTEuMDYtMi45Ni0uNTQtNC0xLjYzbC0yLjQ3LDEuNjNoLS41NFYxMi40N2MuMDItLjU0LS4wMS0xLjA4LS4xLTEuNjEtLjA5LS4yNy0uMjYtLjUxLS41LS42Ny0uMzYtLjE4LS43Ni0uMjYtMS4xNi0uMjV2LS41OGg2LjE4di4wMlpNOTEuNzEsMTkuMDZ2Ni42N2MtLjAyLjg3LjAxLDEuNzQuMSwyLjYxLjA3LjU4LjM0LDEuMTIuNzcsMS41Mi44My43MywyLjA2Ljc4LDIuOTUuMTIuNS0uNS44NC0xLjE0Ljk3LTEuODMuMzMtMS42My40Ny0zLjMuMzktNC45NiwwLTIuMjktLjI5LTMuODgtLjg1LTQuNzMtLjM1LS41OS0uOTktLjk1LTEuNjgtLjk0LTEuMDguMDctMi4wNi42NC0yLjY2LDEuNTQiLz4KICA8cGF0aCBjbGFzcz0ic3QwIiBkPSJNMTE2LjQsMjMuMDhoLTguMThjMCwxLjcuNTUsMy4zNSwxLjU4LDQuNzEuNjIuODQsMS42MSwxLjM0LDIuNjYsMS4zMy42MiwwLDEuMjMtLjE5LDEuNzQtLjU0LjY4LS41MywxLjI1LTEuMTksMS42OC0xLjk0bC41NC4zNWMtLjU5LDEuMzctMS41MSwyLjU4LTIuNjgsMy41Mi0xLC43LTIuMTksMS4wNi0zLjQsMS4wNC0yLjAxLjEtMy45My0uODctNS4wMi0yLjU2LS45Ni0xLjU0LTEuNDMtMy4zMi0xLjM3LTUuMTMtLjEyLTIuMTcuNi00LjMxLDIuMDEtNS45NiwxLjE3LTEuNCwyLjkxLTIuMjEsNC43My0yLjIxLDEuNTIsMCwyLjk2LjY5LDMuOTIsMS44OCwxLjIzLDEuNTYsMS44NiwzLjUxLDEuNzksNS41TTExMi40OCwyMS45OWMuMDUtMS4xOS0uMDQtMi4zOC0uMjctMy41NC0uMTQtLjU2LS40NC0xLjA3LS44Ny0xLjQ2LS4yNS0uMi0uNTctLjMtLjg5LS4yOS0uNTYsMC0xLjA4LjMyLTEuMzUuODEtLjY4LDEuMTktMS4wMSwyLjU1LS45MywzLjkydi41Nmg0LjMyWiIvPgogIDxwYXRoIGNsYXNzPSJzdDAiIGQ9Ik0xMjcuMzYsMTUuN2wuMjUsNS4xMWgtLjU0Yy0uNDItMS4xOC0xLjExLTIuMjQtMi4wMS0zLjExLS41Ny0uNTEtMS4zMS0uODEtMi4wNy0uODMtLjQyLDAtLjgyLjE1LTEuMTIuNDQtLjU1LjQ3LS42MSwxLjMtLjE0LDEuODUuODYuODcsMS44MiwxLjYyLDIuODYsMi4yNSwxLjE4LjcyLDIuMjMsMS42MywzLjA5LDIuNzEuNS43NC43NiwxLjYxLjc1LDIuNSwwLC44Ni0uMjIsMS43LS42MiwyLjQ2LS4zOS43OC0xLDEuNDItMS43NiwxLjgzLS43Ni40NC0xLjYzLjY2LTIuNTEuNjUtLjk4LS4wNi0xLjk1LS4yOS0yLjg2LS42Ny0uMjEtLjA5LS40My0uMTUtLjY2LS4xNy0uMzUsMC0uNjQuMjctLjg3Ljc5aC0uNTJsLS4yNS01LjM4aC41NGMuMzYsMS4yMiwxLjA0LDIuMzEsMS45NywzLjE3LjY0LjYzLDEuNDgsMSwyLjM3LDEuMDYuNDYuMDIuOTEtLjE2LDEuMjUtLjQ4LjMyLS4yOS40OS0uNzEuNDgtMS4xNSwwLS40OS0uMTYtLjk2LS40OC0xLjMzLS42NS0uNjQtMS4zNi0xLjIxLTIuMTQtMS42OS0xLjE2LS43My0yLjIyLTEuNjEtMy4xNS0yLjYxLS42OC0uODEtMS4wNi0xLjg0LTEuMDYtMi45LDAtMS4xNS40Mi0yLjI2LDEuMTgtMy4xMy44Ny0uOTcsMi4xNC0xLjQ5LDMuNDQtMS40LjgyLDAsMS42Mi4yLDIuMzUuNTguMjEuMTQuNDUuMjMuNzEuMjUuMTYsMCwuMzItLjAzLjQ2LS4xMi4yMi0uMi40MS0uNDMuNTYtLjY5aC41NCwwWiIvPgogIDxwYXRoIGNsYXNzPSJzdDAiIGQ9Ik0xNTcuNTIsNy44djcuMTVoLS42NmMtLjUtMi4xMS0xLjQzLTIuODEtMi44LTMuOTQtMS4zLTEuMS0yLjk1LTEuNy00LjY1LTEuNjktMS40MywwLTIuODIuNDMtMy45OCwxLjI1LTEuMTkuODEtMi4xMSwxLjk0LTIuNjYsMy4yNy0uNzQsMS44My0xLjExLDMuNzgtMS4wOCw1Ljc1LS4wMiwxLjkzLjI1LDMuODQuNzksNS42OS40LDEuNTEsMS4yNSwyLjg3LDIuNDUsMy44OCwxLjI1LjkyLDIuNzgsMS4zOCw0LjM0LDEuMzEsMS4zOS4wMiwyLjc3LS4zMSw0LjAxLS45NiwxLjQ3LS44NywyLjc3LTEuOTksMy44NC0zLjMydjJjLTEuMTQsMS4yNC0yLjUyLDIuMjUtNC4wNSwyLjk2LTEuNTYuNjQtMy4yMy45NS00LjkyLjkyLTIuMjguMDQtNC41NC0uNDctNi41OC0xLjUtMS44OC0uOTYtMy40Mi0yLjQ1LTQuNDQtNC4zLTEuMDMtMS44Mi0xLjU2LTMuODctMS41Ni01Ljk2LDAtMi4yMi42LTQuNCwxLjcyLTYuMzIsMS4xMS0xLjk0LDIuNzItMy41NCw0LjY3LTQuNjMsMS45MS0xLjA5LDQuMDctMS42NSw2LjI3LTEuNjUsMS43Ny4wMywzLjUxLjM5LDUuMTUsMS4wNi42My4zLDEuMy41MSwxLjk5LjYyLjM2LDAsLjcxLS4xNC45Ni0uNC4zLS4zNi40OS0uOC41Mi0xLjI3aC42OHYuMDVaIi8+CiAgPHBhdGggY2xhc3M9InN0MCIgZD0iTTE2Ni44MiwyOS40OWMtMS45NSwxLjc3LTMuNjksMi42NS01LjI1LDIuNjUtLjg1LjAyLTEuNjctLjMxLTIuMjYtLjkyLS42LS42Mi0uOTMtMS40NS0uOTEtMi4zMS4wMi0xLjMxLjU5LTIuNTQsMS41OC0zLjQsMS4wNC0xLDMuMzItMi4zMyw2Ljg1LTR2LTEuNjVjLjA1LS43OS0uMDItMS41OC0uMTktMi4zNi0uMTYtLjM1LS40Mi0uNjUtLjc1LS44NS0uMzYtLjI0LS43OS0uMzctMS4yMi0uMzUtLjY1LS4wMy0xLjI4LjE1LTEuODMuNS0uMjYuMTYtLjQyLjQzLS40NC43My4wNS4zNS4yMi42Ny40OC45Mi4zOC4zOS42MS45MS42NCwxLjQ2LDAsLjU2LS4yMiwxLjEtLjYyLDEuNDgtLjQ0LjQxLTEuMDMuNjMtMS42NC42LS42Ni4wMi0xLjMxLS4yMi0xLjgtLjY3LS40Ni0uMzktLjcyLS45Ni0uNzMtMS41Ni4wMi0uOS4zNy0xLjc2Ljk4LTIuNDIuNzMtLjgyLDEuNjctMS40NCwyLjcyLTEuNzcsMS4xNi0uNDIsMi4zOC0uNjMsMy42MS0uNjIsMS4yNy0uMDcsMi41NC4yOCwzLjU5LDEsLjc3LjUzLDEuMzcsMS4yOCwxLjcyLDIuMTUuMjIsMS4xMi4zLDIuMjYuMjUsMy40djYuMzhjLS4wMi40NywwLC45NS4wOCwxLjQyLjA1LjE2LjEzLjMxLjI1LjQ0LjExLjEuMjUuMTUuMzkuMTUuMjksMCwuNi0uMjEuOTEtLjY1bC41Mi40MmMtLjQ1Ljc1LTEuMDUsMS40LTEuNzYsMS45LS42Mi40LTEuMzQuNi0yLjA3LjU4LS43Ny4wNC0xLjUzLS4xOS0yLjE0LS42Ny0uNTgtLjQ5LS45My0xLjItLjk2LTEuOTZNMTY2LjgyLDI4LjE5di01LjVjLTEuMTkuNjctMi4yNCwxLjU4LTMuMDcsMi42Ny0uNDEuNTYtLjY1LDEuMjMtLjY2LDEuOTIsMCwuNTMuMTksMS4wNC41NiwxLjQyLjMxLjMzLjc1LjUsMS4yLjQ4Ljc1LS4wNywxLjQ2LS40MiwxLjk3LS45OCIvPgogIDxwYXRoIGNsYXNzPSJzdDAiIGQ9Ik0xODAuNTIsMzAuMDN2NS45NmMtLjAzLjU3LjAzLDEuMTQuMTksMS42OS4xMS4yOC4zMy41MS42LjY1LjUxLjE4LDEuMDYuMjUsMS42LjIxdi42MmgtOS4xMXYtLjYyYy41OS4wMiwxLjE2LS4xOSwxLjU4LS42LjMtLjY0LjQyLTEuMzQuMzMtMi4wNHYtMTYuOTNjLjA5LS43NS0uMDUtMS41LS4zOS0yLjE3LS40MS0uMzctLjk2LS41Ny0xLjUxLS41NHYtLjYzaDYuNzJ2Mi4xMWMuNDQtLjcsMS4wMi0xLjMxLDEuNy0xLjc5LjgxLS41MywxLjc1LS44MiwyLjcyLS44MSwxLjE2LDAsMi4yOS4zOCwzLjIsMS4xLDEsLjgxLDEuNzcsMS44NywyLjIsMy4wOC41MSwxLjM1Ljc2LDIuNzkuNzUsNC4yMy4wMiwxLjUyLS4yNCwzLjAzLS43Nyw0LjQ2LS40MywxLjIzLTEuMjIsMi4zLTIuMjYsMy4wNy0uOTUuNy0yLjEsMS4wNy0zLjI4LDEuMDYtLjg1LDAtMS42OS0uMTktMi40NS0uNTgtLjY5LS4zOS0xLjMtLjkxLTEuOC0xLjUyTTE4MC41MiwyOC4yOWMuOTgsMS40LDIuMDMsMi4wOCwzLjEzLDIuMDguNjUtLjAyLDEuMjMtLjQsMS41MS0uOTguNi0uOTYuODktMi43OS44OS01LjQ4cy0uMzMtNC42Ny0uOTgtNS42N2MtLjM2LS42My0xLjAyLTEuMDItMS43NC0xLjAyLTEuMTQsMC0yLjEuODMtMi44NCwyLjV2OC41N2guMDJaIi8+CiAgPHBhdGggY2xhc3M9InN0MCIgZD0iTTE5OS4yNiwxNS41NnYzLjYzYy43MS0xLjI2LDEuNjYtMi4zOCwyLjc4LTMuMjkuNjctLjUsMS40Ny0uNzgsMi4zLS44MS41Ny0uMDMsMS4xMy4xOCwxLjU0LjU4LjQuNDYuNjEsMS4wNi41OCwxLjY3LjA0LjY1LS4xNiwxLjI4LS41NiwxLjc5LS4zMy40LS44My42My0xLjM1LjYyLS41OC4wMS0xLjE0LS4yLTEuNTgtLjU4LS4yNC0uMjQtLjUxLS40NS0uNzktLjY1LS4xMi0uMDctLjI2LS4xLS4zOS0uMS0uMzUsMC0uNjguMTQtLjkzLjM4LS41LjQ1LS44NiwxLjAzLTEuMDYsMS42Ny0uMzgsMS4xOS0uNTYsMi40Mi0uNTQsMy42N3Y0LjE1bC4wMi45NmMtLjAzLjQyLjAyLjg0LjEyLDEuMjUuMTIuMjkuMzMuNTMuNi42OS40My4xOC44OS4yNywxLjM1LjI3di42MmgtOC42MXYtLjYyYy41My4wMSwxLjA0LS4yLDEuNDEtLjU4LjM0LS44Mi40Ny0xLjcxLjM3LTIuNTh2LTkuMzJjLjA0LS41OS0uMDEtMS4xOC0uMTUtMS43NS0uMDktLjI4LS4yNi0uNTMtLjUtLjcxLS4zNS0uMTktLjc0LS4yOS0xLjE0LS4zMXYtLjYyaDYuNTJaIi8+CiAgPHBhdGggY2xhc3M9InN0MCIgZD0iTTIyMC4yNiwyMy4wN2gtOC43NmMwLDEuODIuNTksMy41OSwxLjY4LDUuMDUuNjcuOSwxLjcyLDEuNDIsMi44NCwxLjQyLjY3LDAsMS4zMi0uMiwxLjg3LS41OC43My0uNTYsMS4zNC0xLjI2LDEuNzktMi4wNmwuNTguMzhjLS42NCwxLjQ3LTEuNjIsMi43Ni0yLjg2LDMuNzctMS4wNy43NC0yLjM0LDEuMTMtMy42MywxLjExLTIuMTUuMTEtNC4yLS45NC01LjM4LTIuNzUtMS4wMi0xLjY0LTEuNTQtMy41NS0xLjQ3LTUuNDgtLjEyLTIuMzIuNjUtNC42LDIuMTYtNi4zOCwxLjI2LTEuNSwzLjExLTIuMzcsNS4wNi0yLjM4LDEuNjMsMCwzLjE4Ljc0LDQuMjEsMiwxLjMxLDEuNjksMS45OSwzLjc4LDEuOTEsNS45Mk0yMTYuMDYsMjEuOTJjLjA1LTEuMjctLjA1LTIuNTQtLjI5LTMuNzktLjE1LS42LS40OC0xLjE0LS45My0xLjU2LS4yNy0uMjItLjYxLS4zMy0uOTYtLjMxLS42MSwwLTEuMTYuMzQtMS40NS44OC0uNzQsMS4yNy0xLjA5LDIuNzItMS4wMiw0LjE5di42aDQuNjVaIi8+CiAgPHBhdGggY2xhc3M9InN0MCIgZD0iTTIyOC4wMiw5LjEydjUuODZoMy44djEuNjloLTMuOHYxMC44Yy0uMDMuNi4wMiwxLjIuMTIsMS43OS4wNy4yNi4yNC40OS40Ni42NS4xNy4xNS4zOC4yNC42LjI1Ljc1LDAsMS40My0uNTYsMi4xLTEuNjlsLjUyLjM4Yy0uOTEsMi4xOS0yLjQzLDMuMjktNC40OCwzLjI5LS45My4wMi0xLjg0LS4yOC0yLjU3LS44NS0uNjQtLjQ3LTEuMTEtMS4xNC0xLjM1LTEuOS0uMTYtMS4wNC0uMjItMi4xLS4xNy0zLjE1di05LjU3aC0yLjA4di0uNmMxLjM0LS45MywyLjU3LTIuMDEsMy42Ny0zLjIxLDEuMDItMS4xNCwxLjkxLTIuNCwyLjYzLTMuNzVoLjU0di4wMloiLz4KICA8cGF0aCBjbGFzcz0ic3QwIiBkPSJNMjM5LjI5LDkuMTJ2NS44NmgzLjh2MS42OWgtMy44djEwLjhjLS4wMy42LjAyLDEuMi4xMiwxLjc5LjA3LjI2LjI0LjQ5LjQ2LjY1LjE3LjE1LjM4LjI0LjYuMjUuNzUsMCwxLjQzLS41NiwyLjEtMS42OWwuNTIuMzhjLS45MSwyLjE5LTIuNDMsMy4yOS00LjQ4LDMuMjktLjkzLjAyLTEuODQtLjI4LTIuNTctLjg1LS42NC0uNDctMS4xMS0xLjE0LTEuMzUtMS45LS4xNi0xLjA0LS4yMi0yLjEtLjE3LTMuMTV2LTkuNTdoLTIuMDh2LS42YzEuMzQtLjkzLDIuNTctMi4wMSwzLjY3LTMuMjEsMS4wMi0xLjE0LDEuOTEtMi40LDIuNjMtMy43NWguNTR2LjAyWiIvPgogIDxwYXRoIGNsYXNzPSJzdDAiIGQ9Ik0yNTEuMzQsMTUuMTRjMS4zNywwLDIuNzEuMzcsMy44OCwxLjA4LDEuMTkuNzMsMi4xNCwxLjc5LDIuNzIsMy4wNy42MywxLjM2Ljk1LDIuODUuOTMsNC4zNi4wNywyLjA0LS41NCw0LjA1LTEuNzIsNS43MS0xLjMzLDEuODMtMy40OSwyLjg3LTUuNzUsMi43Ny0yLjE1LjExLTQuMjItLjg0LTUuNTQtMi41NC0xLjMtMS42OC0xLjk5LTMuNzUtMS45NS01Ljg4LS4wNC0yLjE3LjY2LTQuMjksMS45OS02LDEuMjgtMS42OSwzLjMxLTIuNjUsNS40NC0yLjU2TTI1MS40MSwxNi4zNmMtLjU3LDAtMS4xMS4yNC0xLjQ5LjY3LS41My43Ny0uODEsMS42OC0uODEsMi42MS0uMTIsMS4yOS0uMTksMy4xMS0uMTksNS40MiwwLDEuMTUuMDgsMi4zLjI1LDMuNDQuMDcuNjkuMzUsMS4zNC44MSwxLjg1LjcuNzYsMS44Ny44NCwyLjY4LjE5LjQ2LS40My43OC0xLC44OS0xLjYzLjI5LTIuMTguNC00LjM5LjMzLTYuNTkuMDYtMS4zNC0uMDUtMi42OS0uMzMtNC0uMTUtLjYxLS40OC0xLjE3LS45Ni0xLjU4LS4zNC0uMjYtLjc2LS4zOS0xLjE4LS4zOCIvPgogIDxwYXRoIGNsYXNzPSJzdDEiIGQ9Ik0xOTAuNDYsNDIuNzF2Mi43OWMtLjAyLjI5LDAsLjU3LjA2Ljg1LjA1LjEzLjE1LjIzLjI3LjI5LjE3LjA5LjM3LjEzLjU2LjEyaC4yN3YuMjVoLTQuNDJ2LS4yNWguMjljLjIuMDEuNDEtLjA0LjU4LS4xNS4xMS0uMDguMi0uMTguMjUtLjMxLjA2LS4yNy4wOC0uNTUuMDYtLjgzdi01LjkyYy4wMi0uMjksMC0uNTctLjA2LS44NS0uMDUtLjEzLS4xNS0uMjMtLjI3LS4yOS0uMTctLjA5LS4zNy0uMTMtLjU2LS4xMmgtLjI5di0uMjVoNC40MnYuMjVoLS4yN2MtLjItLjAxLS40MS4wNC0uNTguMTUtLjExLjA4LS4yLjE4LS4yNS4zMS0uMDYuMjctLjA4LjU1LS4wNi44M3YyLjU0aDIuOTl2LTIuNTRjLjAyLS4yOSwwLS41Ny0uMDYtLjg1LS4wNi0uMTMtLjE2LS4yNC0uMjktLjI5LS4xNy0uMDktLjM3LS4xMy0uNTYtLjEyaC0uMjd2LS4yNWg0LjR2LjI1aC0uMjdjLS4yMS0uMDEtLjQyLjA0LS42LjE1LS4xMS4wOC0uMi4xOC0uMjUuMzEtLjA2LjI3LS4wOC41NS0uMDYuODN2NS45MmMtLjAyLjI5LDAsLjU3LjA2Ljg1LjA1LjEzLjE1LjIzLjI3LjI5LjE3LjA5LjM3LjEzLjU2LjEyaC4yN3YuMjVoLTQuNHYtLjI1aC4yN2MuMi4wMS40MS0uMDQuNTgtLjE1LjExLS4wOC4yLS4xOC4yNS0uMzEuMDYtLjI3LjA4LS41NS4wNi0uODN2LTIuNzloLTIuOTVaIi8+CiAgPHBhdGggY2xhc3M9InN0MSIgZD0iTTIwNy40NSwzOC4wNGMxLjIyLS4wOSwyLjQxLjM1LDMuMjgsMS4yMS44NC44NSwxLjMsMi4wMSwxLjI3LDMuMjEuMDIsMS4wNC0uMzEsMi4wNi0uOTMsMi45LS44MiwxLjExLTIuMTMsMS43My0zLjUxLDEuNjctMS4zNi4wNy0yLjY4LS41Mi0zLjUzLTEuNTgtLjY2LS44NS0xLjAxLTEuOS0uOTgtMi45OC0uMDMtMS4yLjQzLTIuMzYsMS4yOS0zLjIxLjgxLS44NSwxLjk1LTEuMjksMy4xMS0xLjIxTTIwNy41NCwzOC40NWMtLjc4LDAtMS40OC40OC0xLjc2LDEuMjEtLjM4LjktLjU1LDEuODgtLjUsMi44Ni0uMDksMS4xNC4xOCwyLjI5Ljc3LDMuMjcuMzMuNDkuODkuNzcsMS40Ny43NS4zOC4wMS43Ni0uMSwxLjA4LS4zMS40MS0uMzQuNzEtLjguODUtMS4zMS4yMy0uNzYuMzMtMS41NC4zMS0yLjMzLjA0LS44Ny0uMDctMS43My0uMzEtMi41Ni0uMTQtLjQ3LS40Mi0uODktLjc5LTEuMjEtLjMzLS4yMy0uNzItLjM1LTEuMTItLjM1Ii8+CiAgPHBhdGggY2xhc3M9InN0MSIgZD0iTTIyNC4xOCw0My45OGwyLjI4LTUuOTJoMy40MnYuMjVoLS4yN2MtLjIxLS4wMS0uNDIuMDQtLjYuMTUtLjExLjA4LS4yLjE4LS4yNS4zMS0uMDYuMjctLjA4LjU1LS4wNi44M3Y1LjkyYy0uMDIuMjksMCwuNTcuMDYuODUuMDUuMTMuMTUuMjMuMjcuMjkuMTcuMDkuMzcuMTMuNTYuMTJoLjI3di4yNWgtNC40di0uMjVoLjI3Yy4yMS4wMS40Mi0uMDQuNi0uMTUuMTEtLjA4LjItLjE4LjI1LS4zMS4wNi0uMjcuMDgtLjU1LjA2LS44M3YtNi42N2wtMy4yNCw4LjE5aC0uMTVsLTMuMjYtOC4xM3Y2LjM0YzAsLjI3LDAsLjU0LjAyLjgxLjA1LjIyLjE4LjQxLjM1LjU0LjI1LjE2LjU1LjI0Ljg1LjIxdi4yNWgtMi44OHYtLjI1aC4wOGMuMTgsMCwuMzYtLjAyLjUyLS4xLjE1LS4wNS4yOC0uMTUuMzctLjI3LjA5LS4xNS4xNi0uMzEuMTktLjQ4LDAtLjA0LjAyLS4yNy4wMi0uNjd2LTUuNjljLjAyLS4yOSwwLS41Ny0uMDYtLjg1LS4wNi0uMTItLjE1LS4yMi0uMjctLjI5LS4xNy0uMDktLjM3LS4xMy0uNTYtLjEyaC0uMjd2LS4yNmgzLjQ1bDIuMzYsNS45MloiLz4KICA8cGF0aCBjbGFzcz0ic3QxIiBkPSJNMjM5LjU0LDM4LjU0djMuNjloLjE3Yy40NS4wNC44OC0uMTUsMS4xNi0uNS4yOC0uNDUuNDQtLjk3LjQ2LTEuNWguMjN2NC40NGgtLjIzYy0uMDItLjQxLS4xMy0uODItLjMxLTEuMTktLjEyLS4yNi0uMzEtLjQ4LS41Ni0uNjItLjI5LS4xMi0uNi0uMTgtLjkxLS4xN3YyLjY3Yy0uMDIuMjksMCwuNTcuMDYuODUuMDQuMTEuMTIuMi4yMy4yNS4xNi4wOC4zNC4xMS41Mi4xaC41Yy42Ny4wMywxLjMzLS4xNiwxLjg5LS41NC41Mi0uNDMuODgtMS4wMywxLjAyLTEuNjloLjIzbC0uMzcsMi43MWgtNy4yOHYtLjIzaC4yOWMuMiwwLC40LS4wMy41OC0uMTIuMTEtLjA3LjE5LS4xNy4yNS0uMjkuMDYtLjI2LjA4LS41My4wNi0uNzl2LTYuMDljMC0uMjQsMC0uNDctLjA0LS43MS0uMDQtLjEzLS4xMi0uMjUtLjIzLS4zMy0uMTktLjEzLS40Mi0uMTgtLjY0LS4xN2gtLjI5di0uMjNoNy4wNnYyLjVoLS4yM2MtLjA3LS40Ny0uMjQtLjkyLS41LTEuMzEtLjI0LS4yOC0uNTctLjQ5LS45My0uNTgtLjQzLS4wOS0uODctLjEzLTEuMzEtLjFoLS44NXYtLjA0WiIvPgogIDxwYXRoIGNsYXNzPSJzdDEiIGQ9Ik0yNTUuNzYsMzguMDNsLjA2LDIuODZoLS4yNWMtLjA5LS42Ni0uNDEtMS4yNy0uODktMS43My0uNDEtLjQxLS45Ni0uNjQtMS41NC0uNjUtLjM3LS4wMi0uNzMuMTEtMSwuMzUtLjIzLjItLjM3LjQ5LS4zNy43OSwwLC4xNy4wNC4zNS4xMi41LjE1LjIzLjM1LjQzLjU4LjU4LjQzLjI4Ljg4LjUzLDEuMzUuNzUuNzUuMzIsMS40My44LDEuOTksMS40LjgsMS4wMy42NiwyLjUtLjMxLDMuMzYtLjU3LjUzLTEuMzMuODEtMi4xLjc3LS4yNSwwLS41LS4wMi0uNzUtLjA4LS4zLS4wOS0uNi0uMTktLjg5LS4zMS0uMTYtLjA3LS4zMy0uMTItLjUtLjEyLS4xMywwLS4yNS4wNS0uMzUuMTItLjE0LjEtLjI0LjI0LS4yOS40aC0uMTh2LTMuMjVoLjIzYy4xMi43OS40OSwxLjUyLDEuMDYsMi4wOC40NC40NSwxLjA1LjcxLDEuNjguNzMuNDEuMDIuODEtLjEyLDEuMTItLjQuMjYtLjIzLjQxLS41NS40MS0uOSwwLS4yMS0uMDYtLjQxLS4xNy0uNTgtLjEyLS4yMS0uMjgtLjM5LS40OC0uNTQtLjM2LS4yNi0uNzQtLjQ4LTEuMTQtLjY3LS41OS0uMjctMS4xNC0uNTktMS42Ni0uOTgtLjMyLS4yNC0uNTgtLjU2LS43Ny0uOTItLjE4LS4zNC0uMjgtLjcyLS4yNy0xLjEtLjAxLS42Ni4yNi0xLjMuNzUtMS43NS41LS40OCwxLjE3LS43NSwxLjg3LS43My4yNywwLC41My4wMy43OS4xLjI1LjA3LjQ4LjE2LjcxLjI5LjE4LjExLjM4LjE4LjU4LjIxLjA5LDAsLjE4LS4wMy4yNS0uMS4xLS4xNC4xNS0uMzEuMTctLjQ4aC4xOVoiLz4KICA8cGF0aCBjbGFzcz0ic3QxIiBkPSJNMTUuNiwwTDQsMTEuNjVsMy44MiwzLjgxTDE5LjQyLDMuODRsLTMuODItMy44NFoiLz4KICA8cGF0aCBjbGFzcz0ic3QxIiBkPSJNMy44LDExLjg2bDE1LjYsMTUuNjgtMy44LDMuODJMMCwxNS42OGwzLjgtMy44MVoiLz4KICA8cGF0aCBjbGFzcz0ic3QxIiBkPSJNOC4wNCwxNS43MWwzLjY5LTMuNzEsMTEuNTcsMTEuNjQtMy42OSwzLjcxLTExLjU3LTExLjY0WiIvPgogIDxwYXRoIGNsYXNzPSJzdDEiIGQ9Ik0xMS45MywxMS43OGw3LjctNy43MywzLjY5LDMuNzEtNy43LDcuNzQtMy42OS0zLjcxWiIvPgogIDxwYXRoIGNsYXNzPSJzdDEiIGQ9Ik0xOS43NSwxMS44bDMuOC0zLjgyLDcuNjcsNy43Mi0zLjgsMy44My03LjY3LTcuNzJaIi8+CiAgPHBhdGggY2xhc3M9InN0MSIgZD0iTTE1Ljg1LDE1LjdsMy42Ny0zLjY5LDcuNjcsNy43Mi0zLjY3LDMuNjktNy42Ny03LjcyWiIvPgo8L3N2Zz4=" alt="Forbes Capretto Homes" />
+      <div class="id">INFINITY MARKETS · v4.2</div>
+    </div>
+    <div class="cover-body">
+      <div class="cover-eyebrow">Land underwriting · Market study</div>
+      <h1 class="cover-title">Cranberry Township (Enveloped)</h1>
+      <p class="cover-sub">An institutional-grade analysis of demographics, supply, competition, pricing, absorption, land economics, regulatory burden, and financial pro forma — every figure provenance-tagged.</p>
+    </div>
+    <div class="cover-meta">
+      <div class="cell"><div class="l">Date</div><div class="v">April 22, 2026</div></div>
+      <div class="cell"><div class="l">FIPS</div><div class="v">42-019-16392</div></div>
+      <div class="cell"><div class="l">CBSA</div><div class="v">Pittsburgh, PA Metro Area</div></div>
+      <div class="cell"><div class="l">Edition</div><div class="v">v4.2.0 · Editorial</div></div>
+    </div>
+    
+  </div>
+  <div class="toc-page">
+    <div class="toc-eyebrow">Table of contents</div>
+    <h1 class="toc-title">In this report</h1>
+    <ul class="toc-list">
+    <li><span class="num">01</span><span class="label">Executive summary</span><span class="pg">—</span></li>
+  
+    <li><span class="num">02</span><span class="label">Market area</span><span class="pg">—</span></li>
+  
+    <li><span class="num">03</span><span class="label">Demographics</span><span class="pg">—</span></li>
+  
+    <li><span class="num">04</span><span class="label">Housing market</span><span class="pg">—</span></li>
+  
+    <li><span class="num">05</span><span class="label">Building permits</span><span class="pg">—</span></li>
+  
+    <li><span class="num">06</span><span class="label">Competitive landscape</span><span class="pg">—</span></li>
+  
+    <li><span class="num">07</span><span class="label">Absorption &amp; demand</span><span class="pg">—</span></li>
+  
+    <li><span class="num">08</span><span class="label">Pricing strategy</span><span class="pg">—</span></li>
+  
+    <li><span class="num">09</span><span class="label">Land economics</span><span class="pg">—</span></li>
+  
+    <li><span class="num">10</span><span class="label">Pro forma scenarios</span><span class="pg">—</span></li>
+  
+    <li><span class="num">11</span><span class="label">Regulatory environment</span><span class="pg">—</span></li>
+  
+    <li><span class="num">12</span><span class="label">Market scorecard</span><span class="pg">—</span></li>
+  
+    <li><span class="num">13</span><span class="label">SWOT analysis</span><span class="pg">—</span></li>
+  
+    <li><span class="num">14</span><span class="label">Data sources &amp; methodology</span><span class="pg">—</span></li>
+  
+    <li><span class="num">A</span><span class="label">Source manifest · Provenance trail</span><span class="pg">—</span></li>
+  
+    <li><span class="num">B</span><span class="label">Data quality report (when present)</span><span class="pg">—</span></li>
+  </ul>
+  </div><div class="page-break" style="margin-top:18pt"></div><div class="section-mast"><div class="num">01</div><div class="label"><span class="eyebrow">Section 01</span><h2>Executive Summary</h2></div></div><div class="score-big"><div class="number">0.0</div><div class="out-of">out of 10.0</div><div class="rec" style="background:#7A1B1B;color:#FFFFFF;">PASS</div></div><p class="narrative">This institutional-grade market study evaluates <strong>Cranberry Township (Enveloped)</strong> for new residential construction feasibility. The analysis synthesizes data from 18+ government and commercial data sources including the U.S. Census Bureau, FRED, BLS, BEA, HUD, FHFA, Zillow, Redfin, RapidAPI Realtor.com, Parcl Labs, and SEC EDGAR filings, with AI-assisted synthesis via Anthropic Claude.</p><h3>Key Findings</h3><div class="kpi-grid four"><div class="kpi"><div class="value">33,096</div><div class="label">Population <span class="prov-chip prov-measured" title="https://api.census.gov/data/2022/acs/acs5 · fetched 2026-04-10 · conf: high">MEAS</span></div></div><div class="kpi"><div class="value accent">$112,345</div><div class="label">Median HH Income <span class="prov-chip prov-measured" title="https://api.census.gov/data/2022/acs/acs5 · fetched 2026-04-10 · conf: high">MEAS</span></div></div><div class="kpi"><div class="value green">24</div><div class="label">Monthly Absorption</div></div><div class="kpi"><div class="value blue">48</div><div class="label">Annual Demand Gap</div></div></div><div class="page-break" style="margin-top:18pt"></div><div class="section-mast"><div class="num">02</div><div class="label"><span class="eyebrow">Section 02</span><h2>Market Area</h2></div></div><p class="narrative">The market study covers <strong>Cranberry Township</strong>, a township-level market within Butler County County, PA, part of the Pittsburgh, PA Metro Area metro area.</p><dl class="def-list"><dt>Target Area</dt><dd>Cranberry Township</dd><dt>Subdivision/Township</dt><dd>Cranberry township</dd><dt>County</dt><dd>Butler County</dd><dt>State</dt><dd>PA</dd><dt>CBSA (Metro)</dt><dd>Pittsburgh, PA Metro Area</dd><dt>State FIPS</dt><dd>42</dd><dt>County FIPS</dt><dd>019</dd><dt>Subdivision FIPS</dt><dd>16392</dd><dt>ZIP Codes</dt><dd>16066</dd><dt>Coordinates</dt><dd>40.6847, -80.1078</dd></dl><p class="narrative" style="font-size:8.5pt;color:#6B7280;"><em>Note on data scope:</em> Demographic and housing metrics are reported at the most granular geography available from each source. County-level series (permits, employment, price indices) are labeled as such; sub-county metrics are reported at the township/subdivision level when available.</p><div class="page-break" style="margin-top:18pt"></div><div class="section-mast"><div class="num">03</div><div class="label"><span class="eyebrow">Section 03</span><h2>Demographics</h2></div></div><p class="narrative">The demographic profile of Cranberry Township (Enveloped) reveals a population base of 33,096 residents across 12,210 households. The median household income of $112,345 positions this as an above-average income market. The 78% homeownership rate reflects strong ownership culture.</p><div class="kpi-grid"><div class="kpi"><div class="value">33,096</div><div class="label">Population <span class="prov-chip prov-measured" title="https://api.census.gov/data/2022/acs/acs5 · fetched 2026-04-10 · conf: high">MEAS</span></div></div><div class="kpi"><div class="value">0.041%</div><div class="label">5-Year Growth <span class="prov-chip prov-derived" title="acs-trend · fetched 2026-04-10 · conf: medium">DERIV</span></div></div><div class="kpi"><div class="value accent">$112,345</div><div class="label">Median HH Income <span class="prov-chip prov-measured" title="https://api.census.gov/data/2022/acs/acs5 · fetched 2026-04-10 · conf: high">MEAS</span></div></div><div class="kpi"><div class="value">12,210</div><div class="label">Households <span class="prov-chip prov-measured" title="https://api.census.gov/data/2022/acs/acs5 · fetched 2026-04-10 · conf: high">MEAS</span></div></div><div class="kpi"><div class="value">78%</div><div class="label">Homeownership Rate <span class="prov-chip prov-measured" title="https://api.census.gov/data/2022/acs/acs5 · fetched 2026-04-10 · conf: high">MEAS</span></div></div><div class="kpi"><div class="value">0.031%</div><div class="label">Unemployment Rate <span class="prov-chip prov-measured" title="https://api.bls.gov/laus/ · fetched 2026-04-08 · conf: high">MEAS</span></div></div></div><table><tr><th>Indicator</th><th class="text-right">Value</th></tr><tr><td>Median Age</td><td class="text-right">39.8</td></tr><tr><td>Avg Household Size</td><td class="text-right">2.62</td></tr><tr><td>Per Capita Income</td><td class="text-right">$52,840</td></tr><tr><td>MHI Growth (YoY)</td><td class="text-right">—</td></tr><tr><td>Poverty Rate</td><td class="text-right">0.042%</td></tr><tr><td>Vacancy Rate</td><td class="text-right">0.039%</td></tr><tr><td>Affordable Ceiling</td><td class="text-right">—</td></tr><tr><td>Commute Inflow</td><td class="text-right">8,120</td></tr><tr><td>Commute Outflow</td><td class="text-right">6,440</td></tr></table><div class="page-break" style="margin-top:18pt"></div><div class="section-mast"><div class="num">04</div><div class="label"><span class="eyebrow">Section 04</span><h2>Housing Supply &amp; Inventory</h2></div></div><div class="kpi-grid four"><div class="kpi"><div class="value">12,700</div><div class="label">Total Units <span class="prov-chip prov-measured" title="https://api.census.gov/data/2022/acs/acs5 · fetched 2026-04-10 · conf: high">MEAS</span></div></div><div class="kpi"><div class="value accent">9,900</div><div class="label">Owner-Occ <span class="prov-chip prov-measured" title="https://api.census.gov/data/2022/acs/acs5 · fetched 2026-04-10 · conf: high">MEAS</span></div></div><div class="kpi"><div class="value blue">2,300</div><div class="label">Renter-Occ <span class="prov-chip prov-measured" title="https://api.census.gov/data/2022/acs/acs5 · fetched 2026-04-10 · conf: high">MEAS</span></div></div><div class="kpi"><div class="value red">0.039%</div><div class="label">Vacancy <span class="prov-chip prov-derived" title="acs-vacancy/total · fetched 2026-04-10 · conf: medium">DERIV</span></div></div></div><h3>Value &amp; Rent</h3><table><tr><th>Metric</th><th>Value</th></tr><tr><td>Median Home Value</td><td>$367,500</td></tr><tr><td>Median Gross Rent</td><td>$1,580</td></tr><tr><td>Price-to-Income Ratio</td><td>3.3x</td></tr><tr><td>Rent Burden (>30% Income)</td><td>0.18%</td></tr><tr><td>Affordable Price Ceiling (30% DTI)</td><td>$412,000</td></tr></table></div><div class="page-break" style="margin-top:18pt"></div><div class="section-mast"><div class="num">05</div><div class="label"><span class="eyebrow">Section 05</span><h2>Building Permits &amp; Construction Activity</h2></div></div><p class="narrative">No permit data available for this market.</p></div><div class="page-break" style="margin-top:18pt"></div><div class="section-mast"><div class="num">06</div><div class="label"><span class="eyebrow">Section 06</span><h2>Competitive Landscape</h2></div></div><div class="kpi-grid four"><div class="kpi"><div class="value">148</div><div class="label">Active Listings <span class="prov-chip prov-measured" title="https://www.redfin.com/ · fetched 2026-04-18 · conf: high">MEAS</span></div></div><div class="kpi"><div class="value accent">$525,000</div><div class="label">Median List <span class="prov-chip prov-measured" title="https://www.redfin.com/ · fetched 2026-04-18 · conf: high">MEAS</span></div></div><div class="kpi"><div class="value blue">22</div><div class="label">Days on Market <span class="prov-chip prov-derived" title="redfin-aggregate · fetched 2026-04-18 · conf: medium">DERIV</span></div></div><div class="kpi"><div class="value green">11</div><div class="label">Active Builders <span class="prov-chip prov-modeled" title="nhs+edgar blend · fetched 2026-04-19 · conf: medium">MODEL</span></div></div></div><h3>Active Builders (Top 3)</h3><table><tr><th>Builder</th><th>Communities</th><th>Price Range</th><th>Avg Sqft</th><th>$/Sqft</th></tr><tr><td>NVR Inc</td><td>—</td><td>—</td><td>—</td><td>—</td></tr><tr><td>D.R. Horton</td><td>—</td><td>—</td><td>—</td><td>—</td></tr><tr><td>PulteGroup</td><td>—</td><td>—</td><td>—</td><td>—</td></tr></table></div><div class="page-break" style="margin-top:18pt"></div><div class="section-mast"><div class="num">07</div><div class="label"><span class="eyebrow">Section 07</span><h2>Absorption Analysis</h2></div></div><div class="kpi-grid"><div class="kpi"><div class="value accent">—</div><div class="label">Sales / Mo</div></div><div class="kpi"><div class="value">—</div><div class="label">Annual Sales</div></div><div class="kpi"><div class="value blue">— mo</div><div class="label">Months Supply</div></div></div></div><div class="page-break" style="margin-top:18pt"></div><div class="section-mast"><div class="num">08</div><div class="label"><span class="eyebrow">Section 08</span><h2>Pricing Strategy</h2></div></div></div><div class="page-break" style="margin-top:18pt"></div><div class="section-mast"><div class="num">09</div><div class="label"><span class="eyebrow">Section 09</span><h2>Land Acquisition</h2></div></div><div class="kpi-grid four"><div class="kpi"><div class="value">$—</div><div class="label">$/Lot Target</div></div><div class="kpi"><div class="value accent">—</div><div class="label">% of Revenue</div></div><div class="kpi"><div class="value blue">$—</div><div class="label">Finished Lot</div></div><div class="kpi"><div class="value green">—</div><div class="label">Lots/Acre</div></div></div></div><div class="page-break" style="margin-top:18pt"></div><div class="section-mast"><div class="num">10</div><div class="label"><span class="eyebrow">Section 10</span><h2>Pro Forma Financials</h2></div></div><div class="kpi-grid four"><div class="kpi"><div class="value accent">$—</div><div class="label">Revenue</div></div><div class="kpi"><div class="value">$—</div><div class="label">Gross Profit</div></div><div class="kpi"><div class="value green">—</div><div class="label">GP Margin</div></div><div class="kpi"><div class="value blue">—</div><div class="label">Net Margin</div></div></div><h3>Forbes Capretto Homes Margin Gate</h3><div class="narrative">Forbes Capretto underwrites to a <strong>25-31% gross margin</strong> band (lower end for entry-level, upper end for premium/luxury). This scenario: <strong style="color:#6B7280">—</strong> at —.</div><h3>SEC EDGAR Public Builder Benchmarks (latest 10-K)</h3><p class="narrative" style="font-size:8.5pt;color:#6B7280;">Source: SEC EDGAR companyfacts. Revenue / GP / ASP / cancellation rate extracted from most recent 10-K per builder. <strong>0 of 3 builders</strong> had 10-K data resolvable at render time; remaining rows render dashes honestly.</p><table><tr><th>Builder</th><th class="text-right">Revenue</th><th class="text-right">GP Margin</th><th class="text-right">Homes Delivered</th><th class="text-right">ASP</th><th class="text-right">Cancel Rate</th><th class="text-right">Filing</th></tr><tr><td>NVR Inc</td><td class="text-right">—</td><td class="text-right">—</td><td class="text-right">—</td><td class="text-right">—</td><td class="text-right">—</td><td class="text-right" style="font-size:8.5pt;color:#6B7280;">—</td></tr><tr><td>D.R. Horton</td><td class="text-right">—</td><td class="text-right">—</td><td class="text-right">—</td><td class="text-right">—</td><td class="text-right">—</td><td class="text-right" style="font-size:8.5pt;color:#6B7280;">—</td></tr><tr><td>PulteGroup</td><td class="text-right">—</td><td class="text-right">—</td><td class="text-right">—</td><td class="text-right">—</td><td class="text-right">—</td><td class="text-right" style="font-size:8.5pt;color:#6B7280;">—</td></tr></table></div><div class="page-break" style="margin-top:18pt"></div><div class="section-mast"><div class="num">11</div><div class="label"><span class="eyebrow">Section 11</span><h2>Regulatory Environment</h2></div></div></div><div class="page-break" style="margin-top:18pt"></div><div class="section-mast"><div class="num">12</div><div class="label"><span class="eyebrow">Section 12</span><h2>Market Scorecard</h2></div></div><div class="score-summary" style="background:#7A1B1B;border-radius:8px;padding:20px;margin:16px 0;text-align:center;"><div style="font-size:36pt;font-weight:700;color:#FFFFFF;">0.0 / 10</div><div style="font-size:14pt;color:#FFFFFF;font-weight:600;margin-top:6px;">PASS</div></div></div><div class="page-break" style="margin-top:18pt"></div><div class="section-mast"><div class="num">13</div><div class="label"><span class="eyebrow">Section 13</span><h2>SWOT Analysis</h2></div></div><div style="display:grid;grid-template-columns:1fr 1fr;gap:12px;margin:14px 0;"><div style="background:#ECFDF5;border-left:4px solid #10B981;padding:14px;border-radius:4px;"><h3 style="color:#10B981;margin-top:0;">Strengths</h3><ul style="margin:0;padding-left:18px;"></ul></div><div style="background:#FEF2F2;border-left:4px solid #EF4444;padding:14px;border-radius:4px;"><h3 style="color:#EF4444;margin-top:0;">Weaknesses</h3><ul style="margin:0;padding-left:18px;"></ul></div><div style="background:#EFF6FF;border-left:4px solid #3B82F6;padding:14px;border-radius:4px;"><h3 style="color:#3B82F6;margin-top:0;">Opportunities</h3><ul style="margin:0;padding-left:18px;"></ul></div><div style="background:#FFFBEB;border-left:4px solid #F59E0B;padding:14px;border-radius:4px;"><h3 style="color:#F59E0B;margin-top:0;">Threats</h3><ul style="margin:0;padding-left:18px;"></ul></div></div></div><div class="page-break" style="margin-top:18pt"></div><div class="section-mast"><div class="num">14</div><div class="label"><span class="eyebrow">Section 14</span><h2>Data Sources &amp; Methodology</h2></div></div><p class="narrative">This market study was assembled from 18 authoritative data sources, combining government statistics, commercial listings, and AI-driven analysis.</p><table><tr><th>Source</th><th>Data Provided</th><th>Last Updated</th></tr><tr><td>U.S. Census Bureau ACS</td><td>5-Year American Community Survey — population, income, housing characteristics</td><td>Current</td></tr><tr><td>U.S. Census Bureau PEP</td><td>Population Estimates Program — annual population estimates</td><td>Current</td></tr><tr><td>U.S. Census Bureau LODES</td><td>LEHD Origin-Destination Employment Statistics — commute flows</td><td>Current</td></tr><tr><td>Census CBP</td><td>County Business Patterns — employment by NAICS sector</td><td>Current</td></tr><tr><td>FRED / BLS</td><td>Federal Reserve Economic Data — unemployment rate, LAUS series</td><td>Current</td></tr><tr><td>BEA</td><td>Bureau of Economic Analysis — per capita personal income</td><td>Current</td></tr><tr><td>Census BPS</td><td>Building Permits Survey — residential permits by unit type</td><td>Current</td></tr><tr><td>HUD FMR</td><td>Fair Market Rents — rental rates by bedroom count</td><td>Current</td></tr><tr><td>FHFA HPI</td><td>Federal Housing Finance Agency — House Price Index</td><td>Current</td></tr><tr><td>Zillow ZHVI</td><td>Zillow Home Value Index — monthly home value trend</td><td>Current</td></tr><tr><td>Redfin</td><td>Redfin data center — DOM, sale-to-list, months supply</td><td>Current</td></tr><tr><td>RapidAPI Realtor.com</td><td>New construction filter — active communities</td><td>Current</td></tr><tr><td>NewHomeSource</td><td>Community listings &amp; pricing</td><td>Current</td></tr><tr><td>Parcl Labs</td><td>Price-per-square-foot and inventory metrics</td><td>Current</td></tr><tr><td>SEC EDGAR</td><td>Public builder 10-K filings — gross margins, ASP, cancellation rates</td><td>Current</td></tr><tr><td>BLS PPI</td><td>Producer Price Index — construction cost inflation</td><td>Current</td></tr><tr><td>Anthropic Claude API</td><td>claude-sonnet-4-6 — structured market analysis, scoring, SWOT</td><td>Current</td></tr><tr><td>Infinity Markets</td><td>Report generated 2026-04-22</td><td>Current</td></tr></table><h3>Methodology</h3><p class="narrative">Demographic data is sourced from the U.S. Census Bureau (ACS 5-year estimates) and Bureau of Labor Statistics. Housing inventory is pulled from Redfin, Zillow ZHVI, and MLS feeds via RapidAPI Realtor. Competitive intelligence combines NewHomeSource active listings with SEC EDGAR filings for public builders. Absorption, pricing, land, and pro forma analysis is synthesized using Claude Sonnet 4 against the aggregated dataset. The market scorecard applies a weighted 10-factor methodology calibrated to Forbes Capretto Homes underwriting criteria.</p><div class="footer-note" style="margin-top:24px;padding-top:12px;border-top:1px solid #E5E7EB;font-size:8pt;color:#6B7280;">Infinity Markets — Institutional Market Intelligence Platform. Report generated 4/22/2026, 5:00:00 PM.</div></div><div class="page-break" style="margin-top:18pt"></div><div class="section-mast"><div class="num">A</div><div class="label"><span class="eyebrow">Appendix A</span><h2>Source Manifest · Provenance Trail</h2></div></div><p class="lede">Every value rendered in this report carries a provenance classifier. This appendix is the audit trail: per-field, the canonical name, the rendered value, the provenance class (measured / derived / modeled / LLM / missing), the upstream source URL, when it was fetched, and the confidence band.</p><div style="margin:12pt 0 16pt;display:flex;flex-wrap:wrap;align-items:center;gap:6pt;"><span class="prov-measured" style="margin-left:0;margin-right:6pt;">measured · 10</span><span class="prov-derived" style="margin-left:0;margin-right:6pt;">derived · 3</span><span class="prov-modeled" style="margin-left:0;margin-right:6pt;">modeled · 1</span><span style="font-family:Inter,sans-serif;font-size:9pt;color:#6B6B66;margin-left:4pt;">14 fields tracked</span></div><table class="manifest-table"><tr><th style="width:24%">Field</th><th style="width:11%">Provenance</th><th style="width:18%" class="text-right">Value</th><th style="width:8%" class="text-center">Conf.</th><th style="width:13%">Fetched</th><th>Source</th></tr><tr><td><code>demographics.population</code></td><td><span class="prov-measured" style="margin-left:0;">measured</span></td><td class="text-right">33,096</td><td class="text-center" style="color:#6B6B66;">high</td><td style="color:#6B6B66;">Apr 10, 2026</td><td><a class="url" href="https://api.census.gov/data/2022/acs/acs5">https://api.census.gov/data/2022/acs/acs5</a></td></tr><tr><td><code>demographics.popGrowth5yr</code></td><td><span class="prov-derived" style="margin-left:0;">derived</span></td><td class="text-right">0.041</td><td class="text-center" style="color:#6B6B66;">medium</td><td style="color:#6B6B66;">Apr 10, 2026</td><td><a class="url" href="acs-trend">acs-trend</a></td></tr><tr><td><code>demographics.mhi</code></td><td><span class="prov-measured" style="margin-left:0;">measured</span></td><td class="text-right">112,345</td><td class="text-center" style="color:#6B6B66;">high</td><td style="color:#6B6B66;">Apr 10, 2026</td><td><a class="url" href="https://api.census.gov/data/2022/acs/acs5">https://api.census.gov/data/2022/acs/acs5</a></td></tr><tr><td><code>demographics.households</code></td><td><span class="prov-measured" style="margin-left:0;">measured</span></td><td class="text-right">12,210</td><td class="text-center" style="color:#6B6B66;">high</td><td style="color:#6B6B66;">Apr 10, 2026</td><td><a class="url" href="https://api.census.gov/data/2022/acs/acs5">https://api.census.gov/data/2022/acs/acs5</a></td></tr><tr><td><code>demographics.homeownershipRate</code></td><td><span class="prov-measured" style="margin-left:0;">measured</span></td><td class="text-right">78</td><td class="text-center" style="color:#6B6B66;">high</td><td style="color:#6B6B66;">Apr 10, 2026</td><td><a class="url" href="https://api.census.gov/data/2022/acs/acs5">https://api.census.gov/data/2022/acs/acs5</a></td></tr><tr><td><code>demographics.unemploymentRate</code></td><td><span class="prov-measured" style="margin-left:0;">measured</span></td><td class="text-right">0.031</td><td class="text-center" style="color:#6B6B66;">high</td><td style="color:#6B6B66;">Apr 8, 2026</td><td><a class="url" href="https://api.bls.gov/laus/">https://api.bls.gov/laus/</a></td></tr><tr><td><code>housing.totalUnits</code></td><td><span class="prov-measured" style="margin-left:0;">measured</span></td><td class="text-right">12,700</td><td class="text-center" style="color:#6B6B66;">high</td><td style="color:#6B6B66;">Apr 10, 2026</td><td><a class="url" href="https://api.census.gov/data/2022/acs/acs5">https://api.census.gov/data/2022/acs/acs5</a></td></tr><tr><td><code>housing.ownerOccupied</code></td><td><span class="prov-measured" style="margin-left:0;">measured</span></td><td class="text-right">9,900</td><td class="text-center" style="color:#6B6B66;">high</td><td style="color:#6B6B66;">Apr 10, 2026</td><td><a class="url" href="https://api.census.gov/data/2022/acs/acs5">https://api.census.gov/data/2022/acs/acs5</a></td></tr><tr><td><code>housing.renterOccupied</code></td><td><span class="prov-measured" style="margin-left:0;">measured</span></td><td class="text-right">2,300</td><td class="text-center" style="color:#6B6B66;">high</td><td style="color:#6B6B66;">Apr 10, 2026</td><td><a class="url" href="https://api.census.gov/data/2022/acs/acs5">https://api.census.gov/data/2022/acs/acs5</a></td></tr><tr><td><code>housing.vacancyRate</code></td><td><span class="prov-derived" style="margin-left:0;">derived</span></td><td class="text-right">0.039</td><td class="text-center" style="color:#6B6B66;">medium</td><td style="color:#6B6B66;">Apr 10, 2026</td><td><a class="url" href="acs-vacancy/total">acs-vacancy/total</a></td></tr><tr><td><code>competition.activeListings</code></td><td><span class="prov-measured" style="margin-left:0;">measured</span></td><td class="text-right">148</td><td class="text-center" style="color:#6B6B66;">high</td><td style="color:#6B6B66;">Apr 18, 2026</td><td><a class="url" href="https://www.redfin.com/">https://www.redfin.com/</a></td></tr><tr><td><code>competition.medianListPrice</code></td><td><span class="prov-measured" style="margin-left:0;">measured</span></td><td class="text-right">525,000</td><td class="text-center" style="color:#6B6B66;">high</td><td style="color:#6B6B66;">Apr 18, 2026</td><td><a class="url" href="https://www.redfin.com/">https://www.redfin.com/</a></td></tr><tr><td><code>competition.daysOnMarket</code></td><td><span class="prov-derived" style="margin-left:0;">derived</span></td><td class="text-right">22</td><td class="text-center" style="color:#6B6B66;">medium</td><td style="color:#6B6B66;">Apr 18, 2026</td><td><a class="url" href="redfin-aggregate">redfin-aggregate</a></td></tr><tr><td><code>competition.builderCount</code></td><td><span class="prov-modeled" style="margin-left:0;">modeled</span></td><td class="text-right">11</td><td class="text-center" style="color:#6B6B66;">medium</td><td style="color:#6B6B66;">Apr 19, 2026</td><td><a class="url" href="nhs+edgar blend">nhs+edgar blend</a></td></tr></table><div class="disclaimer"><strong>How to read this table.</strong> Provenance taxonomy: <em>measured</em> means a direct observation from a primary source; <em>derived</em> is computed from one or more measured inputs; <em>modeled</em> indicates a fitted curve or projection (look for the R² gate footnote in the relevant section); <em>LLM</em> is a synthesized text annotation, never a measured value; <em>missing</em> is rendered as an em-dash with no derivation. Confidence bands: <em>high</em> ≥ 95% certainty interval, <em>medium</em> 80–95%, <em>low</em> &lt; 80% or unknown sample size.</div></body></html>

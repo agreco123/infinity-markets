@@ -1,0 +1,13 @@
+{
+  "name": "infinity-markets-monorepo",
+  "version": "4.2.0",
+  "private": true,
+  "description": "Infinity Markets monorepo root",
+  "engines": {
+    "node": ">=22.22.0 <23"
+  },
+  "scripts": {
+    "build": "cd client && npm install && npm run build && cd ../server && npm install",
+    "start": "cd server && node index.js"
+  }
+}
